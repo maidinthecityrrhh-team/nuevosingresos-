@@ -1,0 +1,1430 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Bienvenida Oficial · Maid in the City Inc.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --accent:#C98379;--secondary:#F2C3B8;--primary:#0A1014;
+  --warm:#88736E;--bg:#FBF7F5;--bg2:#F5EDE9;--white:#fff;
+  --text:#0A1014;--muted:#88736E;
+  --green:#1A7A4A;--red:#C0392B;--amber:#D4860A;
+  --r:16px;--rs:10px;
+  --sh:0 4px 20px rgba(10,16,20,.08);--shl:0 12px 48px rgba(10,16,20,.15);
+  --t:.32s cubic-bezier(.4,0,.2,1);
+  --glass:rgba(255,255,255,.55);--glass-b:rgba(255,255,255,.85);
+  --glass-border:rgba(255,255,255,.7);--glass-dark:rgba(10,16,20,.45);
+  --glass-accent:rgba(201,131,121,.15);
+  --font-display:'Playfair Display',Georgia,serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);line-height:1.65;overflow-x:hidden;-webkit-tap-highlight-color:transparent}
+.bg-blobs{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.bg-blobs::before{content:'';position:absolute;width:80vw;height:80vh;top:-20vh;left:-20vw;border-radius:50%;background:radial-gradient(circle,rgba(201,131,121,.09) 0%,transparent 65%)}
+.bg-blobs::after{content:'';position:absolute;width:70vw;height:70vh;bottom:-15vh;right:-10vw;border-radius:50%;background:radial-gradient(circle,rgba(242,195,184,.1) 0%,transparent 65%)}
+a,button{touch-action:manipulation}
+#pbar{position:fixed;top:0;left:0;width:0;height:4px;background:linear-gradient(90deg,var(--accent),var(--secondary));z-index:2000;transition:width .1s}
+nav{position:-webkit-sticky;position:sticky;top:0;z-index:900;background:rgba(251,247,245,.93);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,131,121,.15);padding:.55rem 1.25rem;display:flex;align-items:center;gap:.5rem;overflow-x:auto;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav{-webkit-overflow-scrolling:touch}
+nav .brand{font-weight:800;font-size:.82rem;color:var(--accent);white-space:nowrap;margin-right:.75rem;flex-shrink:0}
+nav a{font-size:.73rem;font-weight:600;color:var(--muted);text-decoration:none;white-space:nowrap;padding:.3rem .85rem;border-radius:20px;transition:var(--t);flex-shrink:0}
+nav a:hover,nav a.active{background:var(--accent);color:#fff}
+.wrap{max-width:900px;margin:0 auto;padding:0 1.25rem}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .65s,transform .65s}
+.reveal.in{opacity:1;transform:none}
+section{padding:5rem 0}
+.sec-label{font-size:.68rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:.5rem}
+.sec-title{font-size:clamp(1.65rem,4vw,2.25rem);font-family:var(--font-display);font-weight:700;color:var(--primary);line-height:1.2;margin-bottom:.6rem}
+.sec-desc{color:var(--muted);font-size:.93rem}
+.sec-head{text-align:center;margin-bottom:2.75rem}
+/* HERO / CARTA */
+.hero{background:var(--primary);color:#fff;padding:0;position:relative;overflow:hidden;min-height:100vh;min-height:-webkit-fill-available;min-height:100dvh;display:flex;flex-direction:column;justify-content:center}
+.hero::before{content:'';position:absolute;width:400px;height:400px;top:-100px;right:-100px;border-radius:50%;background:rgba(201,131,121,.12)}
+.hero::after{content:'';position:absolute;width:250px;height:250px;bottom:-80px;left:-60px;border-radius:50%;background:rgba(242,195,184,.08)}
+.hero-inner{position:relative;z-index:1;max-width:680px;margin:0 auto;padding:4rem 1.5rem;display:flex;flex-direction:column;align-items:center}
+.hero-logo{margin-bottom:1.75rem;animation:float 5s ease-in-out infinite}
+@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+.ins-card::after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.55) 50%,transparent 60%);transform:translateX(-100%);transition:none;pointer-events:none;border-radius:inherit}
+.ins-card:hover::after{animation:shimmer .6s ease forwards}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);padding:.45rem 1.1rem;border-radius:30px;font-size:.78rem;font-weight:600;margin-bottom:1.5rem}
+.hero-badge .dot{width:8px;height:8px;border-radius:50%;background:#F2C3B8;animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+.carta-box{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:20px;padding:2.5rem 2.25rem;text-align:left;width:100%;max-width:620px}
+.carta-saludo{font-size:.75rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--secondary);margin-bottom:.75rem}
+.carta-titulo{font-size:clamp(1.5rem,4vw,2rem);font-weight:800;color:#fff;margin-bottom:1.5rem;line-height:1.2}
+.carta-body{font-size:.92rem;color:rgba(255,255,255,.82);line-height:1.85;margin-bottom:1.5rem}
+.carta-body p{margin-bottom:.9rem}
+.carta-body p:last-child{margin-bottom:0}
+.cuatro-c{display:grid;grid-template-columns:1fr 1fr;gap:.65rem;margin:1.1rem 0 1.5rem}
+.c-item{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:.75rem 1rem;display:flex;align-items:center;gap:.7rem}
+.c-ico{font-size:1.3rem;flex-shrink:0}
+.c-info .c-name{font-size:.82rem;font-weight:700;color:#fff;margin-bottom:.1rem}
+.c-info .c-desc{font-size:.72rem;color:rgba(255,255,255,.6);line-height:1.4}
+.carta-firma{border-top:1px solid rgba(255,255,255,.12);padding-top:1.25rem;margin-top:1.25rem}
+.firma-nombre{font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:.15rem}
+.firma-cargo{font-size:.78rem;color:rgba(255,255,255,.6)}
+.btn-empezar{display:inline-flex;align-items:center;gap:.55rem;background:var(--accent);color:#fff;font-family:'Poppins',sans-serif;font-size:.9rem;font-weight:700;padding:.85rem 2rem;border-radius:12px;border:none;cursor:pointer;transition:var(--t);margin-top:2rem;text-decoration:none}
+.btn-empezar:hover{background:#b5705f;transform:translateY(-2px)}
+.grad-line{height:3px;background:linear-gradient(90deg,var(--accent),var(--secondary),var(--warm));border:none;margin:0}
+/* CALLOUT */
+.callout{border-radius:var(--rs);padding:1.1rem 1.35rem;display:flex;gap:.85rem;align-items:flex-start;margin:1.25rem 0}
+.callout.warn{background:rgba(212,134,10,.07);border:1.5px solid rgba(212,134,10,.25)}
+.callout.info{background:rgba(201,131,121,.07);border:1.5px solid rgba(201,131,121,.25)}
+.callout.ok{background:rgba(26,122,74,.07);border:1.5px solid rgba(26,122,74,.2)}
+.callout-ico{font-size:1.35rem;flex-shrink:0;margin-top:.05rem}
+.callout-body strong{display:block;font-size:.9rem;color:var(--text);margin-bottom:.2rem}
+.callout-body p{font-size:.82rem;color:var(--muted);line-height:1.6}
+/* ACCORDION */
+.acc-list{display:flex;flex-direction:column;gap:.7rem}
+.acc-item{background:var(--glass-b);border-radius:var(--r);box-shadow:0 4px 16px rgba(10,16,20,.06),inset 0 1px 0 rgba(255,255,255,.9);overflow:hidden;border:1.5px solid rgba(255,255,255,.7);transition:border-color var(--t),box-shadow var(--t);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.acc-item.open{border-color:var(--accent);box-shadow:0 8px 24px rgba(201,131,121,.15),inset 0 1px 0 rgba(255,255,255,1)}
+.acc-btn{width:100%;display:flex;align-items:center;gap:.9rem;padding:1.1rem 1.35rem;cursor:pointer;background:none;border:none;text-align:left;font-family:'Poppins',sans-serif}
+.acc-btn:hover{background:rgba(201,131,121,.04)}
+.acc-ico{width:42px;height:42px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1.25rem;flex-shrink:0}
+.acc-ttl{flex:1;font-size:.9rem;font-weight:600;color:var(--text)}
+.acc-arr{width:26px;height:26px;border-radius:50%;background:rgba(201,131,121,.1);color:var(--accent);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform var(--t);font-size:.75rem;font-weight:700}
+.acc-item.open .acc-arr{transform:rotate(180deg)}
+.acc-panel{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.4,0,.2,1)}
+.acc-inner{padding:0 1.35rem 1.35rem;font-size:.85rem;color:var(--muted);line-height:1.75;border-top:1px solid rgba(201,131,121,.1);padding-top:.85rem}
+.acc-inner .hl{margin-top:.75rem;padding:.55rem .95rem;border-radius:0 8px 8px 0;border-left:3px solid var(--accent);background:rgba(201,131,121,.07);color:var(--primary);font-weight:600;font-size:.83rem}
+/* PAY CARDS */
+.comp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.1rem;margin-bottom:1.25rem}
+.comp-card{background:var(--glass-b);border-radius:var(--r);padding:1.75rem 1.4rem;box-shadow:0 4px 18px rgba(10,16,20,.07),inset 0 1px 0 rgba(255,255,255,.9);text-align:center;border:1.5px solid rgba(255,255,255,.75);transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s ease;position:relative;overflow:hidd;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)en}
+.comp-card::after{content:'';position:absolute;top:0;left:0;right:0;height:5px}
+.comp-card.cc1::after{background:var(--accent)}.comp-card.cc2::after{background:var(--warm)}.comp-card.cc3::after{background:var(--secondary)}
+.comp-card:hover{transform:translateY(-6px);box-shadow:var(--shl)}
+.comp-card .ctype{display:inline-block;font-size:.68rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:.22rem .7rem;border-radius:20px;margin-bottom:.85rem}
+.cc1 .ctype{background:rgba(201,131,121,.1);color:var(--accent)}.cc2 .ctype{background:rgba(136,115,110,.1);color:var(--warm)}.cc3 .ctype{background:rgba(242,195,184,.3);color:#b5705f}
+.comp-card .camount{font-size:3rem;font-weight:800;line-height:1;margin-bottom:.2rem}
+.cc1 .camount{color:var(--accent)}.cc2 .camount{color:var(--warm)}.cc3 .camount{color:#b5705f}
+.comp-card .cunit{font-size:.82rem;color:var(--muted);margin-bottom:.85rem}
+.comp-card .cdetail{font-size:.8rem;color:var(--muted);line-height:1.55}
+.pay-bar{background:linear-gradient(135deg,var(--primary) 0%,#1a2530 100%);color:#fff;border-radius:var(--r);padding:1.4rem 1.75rem;display:flex;align-items:center;justify-content:space-around;flex-wrap:wrap;gap:1rem;box-shadow:0 8px 28px rgba(10,16,20,.18);border:1px solid rgba(255,255,255,.08)}
+.pay-item{display:flex;align-items:center;gap:.75rem}
+.pay-ico{width:42px;height:42px;border-radius:9px;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:1.25rem}
+.pay-lbl{font-size:.72rem;opacity:.65;font-weight:500}
+.pay-val{font-size:.98rem;font-weight:700}
+/* INSUMOS */
+.ins-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.85rem}
+.ins-card{background:rgba(255,255,255,.82);border:1.5px solid rgba(255,255,255,.9);border-radius:var(--r);padding:1.4rem .9rem;text-align:center;box-shadow:0 4px 20px rgba(10,16,20,.07),inset 0 1px 0 rgba(255,255,255,1);cursor:pointer;transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s ease,border-color .3s ease;position:relative;user-select:none;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);overflow:hidden}
+.ins-card:hover{transform:translateY(-6px) scale(1.03);box-shadow:0 16px 40px rgba(201,131,121,.22),inset 0 1px 0 rgba(255,255,255,1);border-color:rgba(201,131,121,.5)}
+.ins-card:active{transform:scale(.96)}
+.ins-card .iico{font-size:2.4rem;margin-bottom:.5rem;display:block;line-height:1}
+.ins-card .iname{font-size:.8rem;font-weight:600;color:var(--text);line-height:1.3}
+.ins-card .itap{font-size:.68rem;color:var(--muted);margin-top:.3rem}
+.tick-badge{position:absolute;top:7px;right:7px;width:20px;height:20px;border-radius:50%;background:var(--accent);color:#fff;font-size:.7rem;display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(0);transition:var(--t);font-weight:700}
+.ins-card.ticked{background:rgba(201,131,121,.05);border-color:var(--accent)}
+.ins-card.ticked .tick-badge{opacity:1;transform:scale(1)}
+/* SELLO CALIDAD - Order steps */
+.steps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.1rem}
+.step-card{background:var(--white);border-radius:var(--r);padding:1.5rem 1.35rem;box-shadow:var(--sh);border-top:4px solid var(--accent);position:relative}
+.step-num{position:absolute;top:-14px;left:1.35rem;width:28px;height:28px;border-radius:50%;background:var(--accent);color:#fff;font-size:.78rem;font-weight:800;display:flex;align-items:center;justify-content:center}
+.step-title{font-size:.95rem;font-weight:700;color:var(--primary);margin-bottom:.35rem;margin-top:.25rem}
+.step-who{font-size:.72rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--accent);margin-bottom:.7rem}
+.step-body{font-size:.83rem;color:var(--muted);line-height:1.7}
+.step-rules{list-style:none;margin-top:.7rem;display:flex;flex-direction:column;gap:.3rem}
+.step-rules li{font-size:.8rem;color:var(--muted);padding-left:1rem;position:relative}
+.step-rules li::before{content:'→';position:absolute;left:0;color:var(--accent);font-weight:700}
+/* POSTURAS */
+.pos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:1.35rem}
+.pos-card{background:var(--glass-b);border-radius:var(--r);box-shadow:0 4px 18px rgba(10,16,20,.07),inset 0 1px 0 rgba(255,255,255,.9);overflow:hidden;border:1.5px solid rgba(255,255,255,.75);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.pos-head{padding:1.15rem 1.35rem;border-bottom:1px solid rgba(201,131,121,.1)}
+.pos-num{font-size:.67rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:.25rem}
+.pos-name{font-size:1rem;font-weight:700;color:var(--primary)}
+.pos-body{padding:1.25rem}
+.toggle-row{display:flex;background:var(--bg2);border-radius:8px;margin-bottom:1.1rem;overflow:hidden}
+.tbtn{flex:1;padding:.48rem;text-align:center;cursor:pointer;border:none;background:none;font-size:.76rem;font-weight:700;font-family:'Poppins',sans-serif;transition:var(--t);color:var(--muted)}
+.tbtn.ok.on{background:var(--green);color:#fff}
+.tbtn.bad.on{background:var(--red);color:#fff}
+.pos-fig{display:flex;justify-content:center;min-height:165px;align-items:center;margin-bottom:1rem}
+.pos-tip{font-size:.8rem;line-height:1.65;padding:.7rem .9rem;border-radius:8px}
+.pos-tip.ok{background:rgba(26,122,74,.08);color:var(--green)}
+.pos-tip.bad{background:rgba(192,57,43,.08);color:var(--red)}
+.pos-tip strong{display:block;font-weight:700;margin-bottom:.2rem}
+/* DOCS SECTION */
+.docs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.1rem}
+.doc-card{background:var(--white);border-radius:var(--r);padding:1.75rem 1.35rem;box-shadow:var(--sh);text-align:center;border:2px solid rgba(201,131,121,.12);transition:var(--t)}
+.doc-card:hover{transform:translateY(-5px);box-shadow:var(--shl);border-color:var(--accent)}
+.doc-ico{font-size:2.5rem;margin-bottom:.85rem;display:block}
+.doc-code{font-size:.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:.35rem}
+.doc-name{font-size:.95rem;font-family:var(--font-display);font-weight:600;color:var(--primary);margin-bottom:.5rem;line-height:1.3}
+.doc-desc{font-size:.75rem;color:var(--muted);line-height:1.55;margin-bottom:1.1rem}
+.btn-doc{display:inline-flex;align-items:center;gap:.4rem;background:var(--accent);color:#fff;font-family:'Poppins',sans-serif;font-size:.78rem;font-weight:700;padding:.55rem 1.1rem;border-radius:8px;text-decoration:none;transition:var(--t)}
+.btn-doc:hover{background:#b5705f}
+/* FIRMA */
+.firma-section{background:var(--primary);color:#fff;padding:5rem 0}
+.firma-box{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:2.5rem 2rem;max-width:600px;margin:0 auto;-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px);box-shadow:0 12px 48px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.15)}
+.firma-box .fhead{text-align:center;margin-bottom:2rem}
+.firma-box .fhead .ficon{font-size:2.8rem;display:block;margin-bottom:.75rem}
+.firma-box .fhead h3{font-size:1.45rem;font-weight:800;margin-bottom:.4rem}
+.firma-box .fhead p{font-size:.88rem;opacity:.75;line-height:1.6}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:.85rem;margin-bottom:.85rem}
+.form-group{display:flex;flex-direction:column;gap:.4rem}
+.form-group label{font-size:.75rem;font-weight:600;opacity:.75;text-transform:uppercase;letter-spacing:.8px}
+.form-group input{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:.75rem 1rem;color:#fff;font-family:'Poppins',sans-serif;font-size:16px;outline:none;transition:var(--t)}
+.form-group input::placeholder{opacity:.4}
+.form-group input:focus{border-color:var(--accent);background:rgba(255,255,255,.15)}
+.form-group input[readonly]{opacity:.6;cursor:default}
+.checkbox-row{display:flex;align-items:flex-start;gap:.85rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:12px;padding:1rem 1.15rem;margin-bottom:1.25rem;cursor:pointer}
+.checkbox-row input[type=checkbox]{width:22px;height:22px;accent-color:var(--accent);flex-shrink:0;margin-top:.1rem;cursor:pointer}
+.checkbox-row label{font-size:.85rem;line-height:1.55;opacity:.9;cursor:pointer}
+.btn-firma{width:100%;padding:.9rem;border-radius:12px;border:none;cursor:pointer;font-family:'Poppins',sans-serif;font-size:.95rem;font-weight:700;background:var(--accent);color:#fff;transition:var(--t);display:flex;align-items:center;justify-content:center;gap:.6rem;margin-bottom:.7rem}
+.btn-firma:hover:not(:disabled){background:#b5705f;transform:translateY(-2px)}
+.btn-firma:disabled{opacity:.5;cursor:not-allowed}
+.config-note{margin-top:.9rem;padding:.75rem 1rem;border-radius:8px;background:rgba(255,255,255,.06);font-size:.75rem;opacity:.65;text-align:center;line-height:1.5}
+.firma-success{display:none;text-align:center;padding:1.5rem}
+.firma-success .check-circle{width:72px;height:72px;border-radius:50%;background:rgba(26,122,74,.2);border:2px solid rgba(26,122,74,.4);margin:0 auto 1.25rem;display:flex;align-items:center;justify-content:center;font-size:2rem}
+.firma-success h4{font-size:1.2rem;font-weight:700;margin-bottom:.4rem}
+.firma-success p{font-size:.85rem;opacity:.75;margin-bottom:1.5rem;line-height:1.6}
+.firma-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:1.1rem;text-align:left;font-size:.83rem;line-height:1.8}
+.firma-card .fc-row{display:flex;justify-content:space-between;gap:.5rem}
+.firma-card .fc-lbl{opacity:.6;font-weight:500}
+.firma-card .fc-val{font-weight:700}
+/* CALENDAR */
+.cal-wrap{border-radius:var(--r);padding:.25rem 0}
+.cal-legend{display:flex;align-items:center;gap:.65rem;margin-bottom:1.25rem;font-size:.82rem;color:var(--muted);padding:.75rem 1rem;background:rgba(201,131,121,.07);border-radius:var(--rs)}
+.cal-legend-dot{width:18px;height:18px;background:var(--accent);border-radius:5px;flex-shrink:0}
+.months-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.85rem}
+.cal-month{background:var(--white);border-radius:12px;box-shadow:var(--sh);overflow:hidden}
+.cal-mhead{background:var(--primary);color:#fff;padding:.65rem .75rem;text-align:center;font-size:.82rem;font-weight:700;letter-spacing:.5px}
+.cal-dow{display:grid;grid-template-columns:repeat(7,1fr);padding:.38rem .45rem .15rem;background:rgba(10,16,20,.03)}
+.cal-dow span{text-align:center;font-size:.6rem;font-weight:700;color:var(--muted);text-transform:uppercase}
+.cal-days-grid{display:grid;grid-template-columns:repeat(7,1fr);padding:.2rem .45rem .55rem;gap:1px}
+.cal-day-cell{height:26px;display:flex;align-items:center;justify-content:center;font-size:.72rem;border-radius:4px;color:var(--text);position:relative}
+.cal-day-cell.pay-day{background:var(--accent);color:#fff;font-weight:800;border-radius:6px;box-shadow:0 2px 6px rgba(201,131,121,.35)}
+.cal-day-cell.pay-day::after{content:'$';position:absolute;top:-5px;right:-2px;font-size:.52rem;font-weight:900;background:var(--primary);color:#fff;width:11px;height:11px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.cal-day-cell.empty-cell{pointer-events:none}
+.cal-day-cell.today-cell{outline:2px solid var(--accent);outline-offset:1px;font-weight:700}
+@media(max-width:640px){.months-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:380px){.months-grid{grid-template-columns:1fr}}
+
+/* EVALUACION */
+.eval-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1.1rem;margin-bottom:2rem}
+.eval-card{background:var(--white);border-radius:var(--r);box-shadow:var(--sh);padding:1.5rem 1.35rem;position:relative;overflow:hidden;border-top:4px solid transparent}
+.eval-c1{border-top-color:var(--secondary)}.eval-c2{border-top-color:var(--accent)}.eval-c3{border-top-color:var(--primary)}
+.eval-badge{font-size:.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:.35rem}
+.eval-day{font-size:2.2rem;font-weight:800;color:var(--primary);line-height:1;margin-bottom:.25rem}
+.eval-title{font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:.65rem}
+.eval-body{font-size:.81rem;color:var(--muted);line-height:1.65}
+.dim-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:.75rem;margin-bottom:2rem}
+.dim-card{background:var(--white);border-radius:var(--rs);padding:1rem 1.15rem;box-shadow:var(--sh);display:flex;align-items:flex-start;gap:.75rem;border-left:3px solid var(--secondary)}
+.dim-ico{font-size:1.4rem;flex-shrink:0;margin-top:.05rem}
+.dim-name{font-size:.85rem;font-weight:700;color:var(--primary);margin-bottom:.15rem}
+.dim-desc{font-size:.76rem;color:var(--muted);line-height:1.5}
+.avance-card{background:var(--primary);border-radius:var(--r);padding:2rem;color:#fff;display:flex;align-items:flex-start;gap:1.5rem;margin-top:.5rem}
+.avance-ico-wrap{font-size:2.8rem;flex-shrink:0;background:rgba(255,255,255,.08);border-radius:12px;width:70px;height:70px;display:flex;align-items:center;justify-content:center}
+.avance-label{font-size:.65rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--secondary);margin-bottom:.4rem}
+.avance-title{font-size:1.15rem;font-family:var(--font-display);font-weight:700;margin-bottom:.65rem;color:#fff}
+.avance-text{font-size:.83rem;opacity:.8;line-height:1.7;color:rgba(255,255,255,.85)}
+.avance-pills{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:1rem}
+.avance-pill{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:20px;padding:.28rem .8rem;font-size:.72rem;font-weight:600;color:rgba(255,255,255,.9)}
+@media(max-width:600px){.avance-card{flex-direction:column;gap:1rem}}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(10,16,20,.65);z-index:1500;display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;pointer-events:none;transition:opacity .28s;backdrop-filter:blur(4px)}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal-box{background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,.85);box-shadow:0 24px 64px rgba(10,16,20,.25);border-radius:20px;width:100%;max-width:580px;max-height:90vh;overflow-y:auto;transform:scale(.92) translateY(16px);transition:transform .3s cubic-bezier(.34,1.56,.64,1);position:relative}
+.modal-overlay.open .modal-box{transform:scale(1) translateY(0)}
+.modal-close{position:absolute;top:14px;right:14px;z-index:10;width:32px;height:32px;border-radius:50%;border:none;background:rgba(10,16,20,.08);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:var(--muted);transition:var(--t);font-family:'Poppins',sans-serif}
+.modal-close:hover{background:var(--red);color:#fff}
+.modal-emoji-box{background:linear-gradient(135deg,rgba(201,131,121,.1),rgba(242,195,184,.08));border-radius:16px 16px 0 0;padding:2.5rem 1.5rem 2rem;text-align:center}
+.modal-emoji-box .big-ico{font-size:4.5rem;display:block;margin-bottom:.75rem;line-height:1}
+.modal-emoji-box .modal-title{font-size:1.35rem;font-weight:800;color:var(--primary)}
+.modal-emoji-box .modal-badge{display:inline-block;margin-top:.4rem;font-size:.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:.22rem .8rem;border-radius:20px;background:rgba(201,131,121,.12);color:var(--accent)}
+.modal-body-content{padding:1.5rem}
+.modal-desc{font-size:.9rem;color:var(--muted);line-height:1.7;margin-bottom:1.25rem}
+.modal-section-label{font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:.75rem}
+.use-list{list-style:none;display:flex;flex-direction:column;gap:.6rem;margin-bottom:1.25rem}
+.use-list li{display:flex;align-items:flex-start;gap:.75rem;font-size:.87rem;color:var(--text);line-height:1.5}
+.use-list li .use-ico{width:32px;height:32px;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1rem;background:rgba(201,131,121,.08)}
+.use-list li .use-text strong{display:block;font-weight:600;color:var(--primary);margin-bottom:.1rem}
+.use-list li .use-text span{color:var(--muted);font-size:.82rem}
+.modal-warning{margin-top:1rem;background:rgba(192,57,43,.07);border:1.5px solid rgba(192,57,43,.2);border-radius:var(--rs);padding:.85rem 1rem;font-size:.82rem;color:var(--red);line-height:1.55}
+.modal-warning strong{display:block;font-weight:700;margin-bottom:.2rem}
+.modal-tip{margin-top:.85rem;background:rgba(26,122,74,.07);border:1.5px solid rgba(26,122,74,.2);border-radius:var(--rs);padding:.85rem 1rem;font-size:.82rem;color:var(--green);line-height:1.55}
+/* SWATCHES */
+.swatches{display:flex;flex-direction:column;gap:.65rem}
+.swatch{border-radius:12px;padding:1rem 1.1rem;display:flex;align-items:center;gap:.9rem}
+.swatch-dot{width:36px;height:36px;border-radius:50%;border:2.5px solid rgba(255,255,255,.4);flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.swatch-info{flex:1}
+.swatch-color{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+.swatch-area{font-size:.88rem;font-weight:600;margin-bottom:.1rem}
+.swatch-note{font-size:.76rem;opacity:.8}
+.sw-red{background:rgba(229,57,53,.1);color:#C62828}
+.sw-yellow{background:rgba(253,216,53,.15);color:#8B6914}
+.sw-blue{background:rgba(30,136,229,.08);color:#1565C0}
+.sw-green{background:rgba(67,160,71,.09);color:#2E7D32}
+/* FOOTER */
+footer{background:var(--primary);color:#fff;padding:3rem 1.5rem;text-align:center}
+.f-name{font-size:1.05rem;font-weight:700;margin-bottom:.2rem}
+.f-sub{font-size:.78rem;opacity:.6}
+.f-line{width:44px;height:2px;background:var(--accent);margin:1rem auto;border-radius:2px}
+.f-tag{font-size:.87rem;font-style:italic;opacity:.75}
+.modal-photo-box img{transition:transform .4s ease}.modal-photo-box:hover img{transform:scale(1.03)}
+/* ── RESPONSIVE & MOBILE-FIRST ─────────────────────── */
+
+/* Safe area para iPhone con notch / Dynamic Island */
+body{padding-bottom:env(safe-area-inset-bottom,0px);-webkit-text-size-adjust:100%}
+nav{
+  padding-left:max(1.25rem,env(safe-area-inset-left,1.25rem));
+  padding-right:max(1.25rem,env(safe-area-inset-right,1.25rem));
+}
+.hero-inner{
+  padding-left:max(1.5rem,env(safe-area-inset-left,1.5rem));
+  padding-right:max(1.5rem,env(safe-area-inset-right,1.5rem));
+}
+
+/* Touch targets mínimos 44px */
+nav a{min-height:44px;display:inline-flex;align-items:center}
+.acc-btn{min-height:52px}
+.btn-doc,.btn-firma,.btn-empezar{min-height:48px}
+
+/* Tablet ≤ 768px */
+@media(max-width:768px){
+  .months-grid{grid-template-columns:repeat(2,1fr)}
+  .steps-grid{grid-template-columns:1fr 1fr}
+  .eval-steps{grid-template-columns:1fr 1fr}
+  .dim-grid{grid-template-columns:1fr 1fr}
+  .docs-grid{grid-template-columns:1fr 1fr}
+}
+
+/* Mobile ≤ 640px */
+@media(max-width:640px){
+  section{padding:3rem 0}
+  .wrap{padding:0 1rem}
+
+  /* Hero / Carta */
+  .hero-inner{padding:2.5rem 1rem}
+  .carta-box{padding:1.6rem 1.15rem}
+  .carta-titulo{font-size:1.45rem}
+  .cuatro-c{grid-template-columns:1fr 1fr;gap:.5rem}
+  .btn-empezar{margin-top:1.5rem;font-size:.85rem;padding:.75rem 1.5rem}
+
+  /* Grids → una columna */
+  .comp-grid,.pos-grid,.steps-grid,.eval-steps,.dim-grid{grid-template-columns:1fr}
+  .docs-grid{grid-template-columns:1fr 1fr}
+  .form-row{grid-template-columns:1fr}
+
+  /* Herramientas */
+  .ins-grid{grid-template-columns:repeat(3,1fr)}
+
+  /* Calendario */
+  .months-grid{grid-template-columns:repeat(2,1fr);gap:.65rem}
+  .cal-day-cell{height:22px;font-size:.63rem}
+  .cal-mhead{font-size:.75rem;padding:.55rem .5rem}
+  .cal-dow span{font-size:.52rem}
+  .cal-day-cell.pay-day::after{font-size:.44rem;width:10px;height:10px;top:-4px;right:-1px}
+
+  /* Pay bar */
+  .pay-bar{flex-direction:column;gap:.75rem;align-items:flex-start;padding:1.2rem 1.35rem}
+  .pay-item{width:100%;justify-content:flex-start}
+
+  /* Posturas */
+  .pos-grid{grid-template-columns:1fr}
+
+  /* Firma */
+  .firma-box{padding:1.6rem 1.1rem}
+
+  /* Avance card */
+  .avance-card{flex-direction:column;gap:1rem}
+  .avance-ico-wrap{width:52px;height:52px;font-size:2rem}
+
+  /* Modal full-screen bottom-sheet en móvil */
+  .modal-overlay{padding:.5rem .5rem 0;align-items:flex-end}
+  .modal-photo-box{height:180px}
+  .modal-box{border-radius:20px 20px 0 0;max-height:88vh}
+
+  /* Sección OSHA callout */
+  .callout{gap:.6rem}
+}
+
+/* iPhone SE / pequeños ≤ 430px */
+@media(max-width:430px){
+  .cuatro-c{grid-template-columns:1fr}
+  .c-item{padding:.6rem .75rem}
+  .months-grid{grid-template-columns:1fr 1fr;gap:.5rem}
+  .cal-day-cell{height:20px;font-size:.58rem}
+  .cal-dow span{font-size:.5rem}
+  .ins-grid{grid-template-columns:repeat(2,1fr)}
+  .docs-grid{grid-template-columns:1fr}
+  .carta-titulo{font-size:1.3rem}
+  .carta-body{font-size:.88rem}
+  .hero-inner{padding:2rem .9rem}
+  .carta-box{padding:1.25rem .95rem}
+  .carta-firma{padding-top:1rem;margin-top:1rem}
+  .avance-pills{gap:.35rem}
+  .avance-pill{font-size:.68rem;padding:.22rem .65rem}
+  .eval-day{font-size:1.8rem}
+  .sec-title{font-size:1.35rem}
+}
+
+/* iPhone SE 1ra gen / 375px */
+@media(max-width:375px){
+  .months-grid{grid-template-columns:1fr}
+  .cal-month{max-width:100%}
+  .cal-day-cell{height:28px;font-size:.7rem}
+}
+</style>
+</head>
+<body>
+<div class="bg-blobs" aria-hidden="true"></div>
+<div id="pbar"></div>
+<nav id="mainnav">
+  <span class="brand">MIC · Onboarding</span>
+  <a href="#carta">📝 Bienvenida</a>
+  <a href="#reglas">📋 Reglas</a>
+  <a href="#pago">💰 Tu Pago</a>
+  <a href="#asistencia">📅 Asistencia</a>
+  <a href="#insumos">🧴 Insumos</a>
+  <a href="#herramientas">🛠️ Herramientas</a>
+  <a href="#calidad">⭐ Calidad</a>
+  <a href="#osha">🦺 Seguridad</a>
+  <a href="#documentos">📁 Documentos</a>
+  <a href="#evaluacion">📊 Evaluación</a>
+  <a href="#firma">✍️ Firma</a>
+</nav>
+
+<!-- HERO / CARTA DE BLANCA -->
+<section id="carta" class="hero">
+  <div class="hero-inner">
+    <div class="hero-logo">
+      <svg width="100" height="100" viewBox="0 0 100 100" fill="none">
+        <circle cx="50" cy="50" r="47" stroke="rgba(255,255,255,.15)" stroke-width="1.5"/>
+        <circle cx="50" cy="50" r="37" stroke="rgba(201,131,121,.35)" stroke-width="1.5"/>
+        <path d="M50 12 C80 12, 88 32, 88 50 C88 68, 76 86, 50 88" stroke="rgba(242,195,184,.5)" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <text x="50" y="44" text-anchor="middle" fill="#C98379" font-family="Poppins,Arial,sans-serif" font-weight="800" font-size="10">Maid in the</text>
+        <text x="50" y="58" text-anchor="middle" fill="#ffffff" font-family="Poppins,Arial,sans-serif" font-weight="700" font-size="13">City</text>
+        <text x="50" y="70" text-anchor="middle" fill="rgba(255,255,255,.5)" font-family="Poppins,Arial,sans-serif" font-size="6.5">INC.</text>
+      </svg>
+    </div>
+    <div class="hero-badge"><span class="dot"></span>Día de Ingreso Oficial · Maid in the City Inc.</div>
+    <div class="carta-box">
+      <p class="carta-saludo">Una carta personal para ti</p>
+      <h1 class="carta-titulo">Bienvenida a<br>nuestra familia</h1>
+      <div class="carta-body">
+        <p>Antes de cualquier protocolo, cualquier regla y cualquier formato, quiero que sepas algo: <strong style="color:#F2C3B8">tu decisión de unirte a nuestro equipo no es un trámite para mí.</strong> Es algo que tomo con mucho respeto y mucha gratitud.</p>
+        <p>Llevar años en este trabajo me ha enseñado que lo que hacemos importa. No solo porque dejamos cada hogar brillando, sino porque detrás de cada limpieza hay una familia que confía en nosotras. Eso, en mi opinión, es un privilegio enorme.</p>
+        <p>Este documento es tu mapa para el primer día — y para todos los que vienen. Todo lo que leerás aquí es lo que necesitas saber para comenzar con <strong style="color:#F2C3B8">claridad, confianza y orgullo.</strong></p>
+        <p>Trabajamos con cuatro principios que me guían a mí y que espero que también te guíen a ti:</p>
+      </div>
+      <div class="cuatro-c">
+        <div class="c-item">
+          <span class="c-ico">📋</span>
+          <div class="c-info">
+            <p class="c-name">Cumplimiento</p>
+            <p class="c-desc">Entender y respetar las reglas del trabajo</p>
+          </div>
+        </div>
+        <div class="c-item">
+          <span class="c-ico">🎯</span>
+          <div class="c-info">
+            <p class="c-name">Claridad</p>
+            <p class="c-desc">Saber exactamente qué se espera de ti</p>
+          </div>
+        </div>
+        <div class="c-item">
+          <span class="c-ico">🌸</span>
+          <div class="c-info">
+            <p class="c-name">Cultura</p>
+            <p class="c-desc">Ser parte de algo más grande que una jornada</p>
+          </div>
+        </div>
+        <div class="c-item">
+          <span class="c-ico">🤝</span>
+          <div class="c-info">
+            <p class="c-name">Conexión</p>
+            <p class="c-desc">Sentirte parte de un equipo que te apoya</p>
+          </div>
+        </div>
+      </div>
+      <div class="carta-body">
+        <p>Mi puerta siempre está abierta. Este trabajo tiene sus exigencias, y voy a ser honesta contigo sobre ellas. Pero también tiene algo que muy pocos trabajos ofrecen: la satisfacción de ver el resultado de tu esfuerzo con tus propios ojos, <strong style="color:#F2C3B8">casa por casa, cada día.</strong></p>
+      </div>
+      <div class="carta-firma">
+        <p class="firma-nombre">Blanca Salgado</p>
+        <p class="firma-cargo">Dueña · Maid in the City Inc. · Hendersonville, NC</p>
+      </div>
+    </div>
+    <a class="btn-empezar" href="#reglas">Comenzar mi lectura ↓</a>
+  </div>
+</section>
+<hr class="grad-line">
+
+<main>
+
+<!-- REGLAS NO NEGOCIABLES -->
+<section id="reglas">
+<div class="wrap reveal">
+  <div class="sec-head">
+    <p class="sec-label">Lo que no se negocia</p>
+    <h2 class="sec-title">Reglas del trabajo</h2>
+    <p class="sec-desc">Haz clic en cada regla para ver el detalle. Conocerlas desde el primer día es tu responsabilidad.</p>
+  </div>
+  <div class="acc-list">
+    <div class="acc-item">
+      <button class="acc-btn" onclick="toggleAcc(this)">
+        <div class="acc-ico" style="background:rgba(201,131,121,.1)">👔</div>
+        <span class="acc-ttl">Uniforme — presentación profesional obligatoria</span>
+        <div class="acc-arr">▼</div>
+      </button>
+      <div class="acc-panel"><div class="acc-inner">
+        Se te proporcionan <strong>2 uniformes</strong> al comenzar. El uniforme es obligatorio desde que sales de tu casa hacia el shop. No se puede entrar a trabajar sin él.<br><br>
+        La presentación es parte del servicio. Los clientes nos ven y nos juzgan antes de que digamos una sola palabra. Llegar con uniforme limpio y en orden es la primera impresión de Maid in the City.
+        <div class="hl">Regla: sin uniforme, no hay servicio. Cualquier incidente de presentación se documenta.</div>
+      </div></div>
+    </div>
+    <div class="acc-item">
+      <button class="acc-btn" onclick="toggleAcc(this)">
+        <div class="acc-ico" style="background:rgba(10,16,20,.06)">⏰</div>
+        <span class="acc-ttl">Puntualidad — tu llegada afecta a todo el equipo</span>
+        <div class="acc-arr">▼</div>
+      </button>
+      <div class="acc-panel"><div class="acc-inner">
+        El equipo sale junto del shop. Si llegas tarde, todo el equipo sale tarde — eso afecta al primer cliente del día y produce un efecto en cascada en toda la ruta.<br><br>
+        La hora de salida del shop es la hora en que todas deben estar listas, no llegando. Llegar a tiempo significa llegar con tiempo para cargar, revisar tu material y estar lista.
+        <div class="hl">Puntualidad crónica es causal de separación. Es un estándar profesional, no una preferencia.</div>
+      </div></div>
+    </div>
+    <div class="acc-item">
+      <button class="acc-btn" onclick="toggleAcc(this)">
+        <div class="acc-ico" style="background:rgba(201,131,121,.1)">📱</div>
+        <span class="acc-ttl">Celular — uso restringido durante jornada</span>
+        <div class="acc-arr">▼</div>
+      </button>
+      <div class="acc-panel"><div class="acc-inner">
+        El celular durante el trabajo solo tiene dos usos autorizados:<br><br>
+        <strong>1.</strong> Comunicación con la supervisora o la dueña (WhatsApp Business).<br>
+        <strong>2.</strong> Consulta del checklist del cliente en HouseCall Pro.<br><br>
+        No se usa para llamadas personales, redes sociales ni mensajes privados dentro de la casa del cliente. El cliente confía en nosotras en su espacio — usar el celular de forma personal daña esa confianza.
+        <div class="hl">El celular está para hacer mejor el trabajo, no para interrumpirlo.</div>
+      </div></div>
+    </div>
+    <div class="acc-item">
+      <button class="acc-btn" onclick="toggleAcc(this)">
+        <div class="acc-ico" style="background:rgba(26,122,74,.08)">🏠</div>
+        <span class="acc-ttl">Comportamiento en casa del cliente</span>
+        <div class="acc-arr">▼</div>
+      </button>
+      <div class="acc-panel"><div class="acc-inner">
+        Estás en el hogar de alguien. Eso conlleva responsabilidades específicas:
+        <br><br>
+        <strong>❌ No hacer sin autorización:</strong> abrir el refrigerador por dentro, entrar al horno, lavar más de 10 trastes, mover objetos personales del cliente, hacer trabajo extra no pactado.<br><br>
+        <strong>✅ Hacer siempre:</strong> reportar a la supervisora si encuentras algo roto o dañado antes de que llegaste, no tocar dinero ni joyas, dejar todo en su lugar original.<br><br>
+        Si hay más de 10 trastes en el fregadero: <strong>reportar</strong>. No lavar por cuenta propia sin autorización.
+        <div class="hl">Lo que no conoces como autorizado, no lo haces. Reportas primero.</div>
+      </div></div>
+    </div>
+    <div class="acc-item">
+      <button class="acc-btn" onclick="toggleAcc(this)">
+        <div class="acc-ico" style="background:rgba(212,134,10,.08)">🚗</div>
+        <span class="acc-ttl">Salida del shop — cada una carga lo suyo</span>
+        <div class="acc-arr">▼</div>
+      </button>
+      <div class="acc-panel"><div class="acc-inner">
+        Antes de salir del shop, cada trabajadora es responsable de su propio material. No se puede salir a la primera casa sin verificar que llevas todo lo que necesitas.<br><br>
+        <strong>Checklist de salida:</strong> sacudidores, trapos suficientes, líquido cocina, líquido baños, líquido pisos, líquido vidrios, aspiradora (si te corresponde), mínimo 4 trapeadores por equipo de 2 personas.<br><br>
+        Llegar a una casa sin el líquido correcto no tiene solución en el momento. Depender del material de tu compañera genera conflicto y retrasos.
+        <div class="hl">Tu material es tu responsabilidad. Revisar antes de salir es parte del trabajo.</div>
+      </div></div>
+    </div>
+    <div class="acc-item">
+      <button class="acc-btn" onclick="toggleAcc(this)">
+        <div class="acc-ico" style="background:rgba(201,131,121,.1)">🗣️</div>
+        <span class="acc-ttl">Comunicación — WhatsApp Business, siempre</span>
+        <div class="acc-arr">▼</div>
+      </button>
+      <div class="acc-panel"><div class="acc-inner">
+        Toda comunicación de trabajo con Maid in the City ocurre por <strong>WhatsApp Business</strong>. No por número personal, no por Instagram, no por llamada a terceros.<br><br>
+        Esto incluye: reportar llegada, reportar incidentes, preguntar sobre el checklist, pedir autorización para trabajo extra, reportar ausencias y cualquier comunicación laboral.<br><br>
+        Los mensajes de trabajo en grupos de WhatsApp deben leerse y responderse. "No vi el mensaje" no es excusa en un equipo operativo.
+        <div class="hl">Si no está en WhatsApp Business, no existió para la empresa.</div>
+      </div></div>
+    </div>
+    <div class="acc-item">
+      <button class="acc-btn" onclick="toggleAcc(this)">
+        <div class="acc-ico" style="background:rgba(192,57,43,.07)">🚫</div>
+        <span class="acc-ttl">Prohibiciones absolutas en casa del cliente</span>
+        <div class="acc-arr">▼</div>
+      </button>
+      <div class="acc-panel"><div class="acc-inner">
+        Las siguientes conductas son causales de separación inmediata:<br><br>
+        <strong>→</strong> Traer visitas (hijos, amigos, familiares) al trabajo.<br>
+        <strong>→</strong> Entrar desorganizadas a una casa sin un plan de trabajo.<br>
+        <strong>→</strong> Quedarse adentro sin trabajar después de terminar tu área.<br>
+        <strong>→</strong> Tomar objetos del cliente — cualquier objeto, por pequeño que sea.<br>
+        <strong>→</strong> Mezclar químicos sin conocimiento (puede ser peligroso).<br>
+        <strong>→</strong> Discutir o hablar mal de la empresa o de compañeras frente al cliente.
+        <div class="hl">Al terminar tu área, sal al carro a cargar el material. No te quedes adentro sin hacer nada.</div>
+      </div></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- PAGO -->
+<section id="pago" style="background:var(--bg2)">
+<div class="wrap reveal">
+  <div class="sec-head">
+    <p class="sec-label">Compensación</p>
+    <h2 class="sec-title">Tu pago</h2>
+    <p class="sec-desc">Aquí está la estructura completa de cómo y cuándo recibes tu compensación en Maid in the City.</p>
+  </div>
+  <div class="cal-wrap">
+    <div class="cal-legend">
+      <div class="cal-legend-dot"></div>
+      <span><strong style="color:var(--primary)">Días de pago quincenal · julio a diciembre 2026</strong> — cada dos viernes. El pago se refleja ese mismo día o al siguiente día hábil.</span>
+    </div>
+    <div class="months-grid" id="cal-months-container"><!-- generado por JS --></div>
+  </div>
+  <div class="pay-bar" style="margin-top:1.1rem">
+    <div class="pay-item"><div class="pay-ico">📅</div><div><p class="pay-lbl">Ciclo</p><p class="pay-val">Quincenal · viernes</p></div></div>
+    <div class="pay-item"><div class="pay-ico">📄</div><div><p class="pay-lbl">Política completa</p><p class="pay-val">POL-PAY-MIC-001</p></div></div>
+    <div class="pay-item"><div class="pay-ico">👔</div><div><p class="pay-lbl">Uniforme</p><p class="pay-val">Descuento autorizado</p></div></div>
+    <div class="pay-item"><div class="pay-ico">💰</div><div><p class="pay-lbl">Fondo voluntario</p><p class="pay-val">FMT-HR-MIC-007</p></div></div>
+  </div>
+  <div class="callout info" style="margin-top:1.25rem">
+    <span class="callout-ico">ℹ️</span>
+    <div class="callout-body">
+      <strong>Fondo voluntario (reserva personal)</strong>
+      <p>Puedes solicitar por escrito que se reserve una parte de tu pago en un fondo personal. El dinero siempre es tuyo y lo recuperas completo cuando lo necesites. Se autoriza firmando el FMT-HR-MIC-007. Pregunta a Blanca para más detalles.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ASISTENCIA -->
+<section id="asistencia">
+<div class="wrap reveal">
+  <div class="sec-head">
+    <p class="sec-label">Presencia y responsabilidad</p>
+    <h2 class="sec-title">Asistencia</h2>
+    <p class="sec-desc">Tu presencia no afecta solo tu trabajo — afecta a todo el equipo y a los clientes del día.</p>
+  </div>
+  <div class="acc-list">
+    <div class="acc-item">
+      <button class="acc-btn" onclick="toggleAcc(this)">
+        <div class="acc-ico" style="background:rgba(26,122,74,.08)">✅</div>
+        <span class="acc-ttl">Cómo reportar una ausencia correctamente</span>
+        <div class="acc-arr">▼</div>
+      </button>
+      <div class="acc-panel"><div class="acc-inner">
+        Si no puedes trabajar un día, debes notificar <strong>con la mayor anticipación posible</strong> y siempre antes de la hora de salida del shop.<br><br>
+        Notificación: por WhatsApp Business, directamente a tu supervisora o a Blanca. No basta con mandar mensaje a otra compañera.<br><br>
+        Una ausencia sin aviso genera problemas de cobertura que afectan a clientes que ya tienen citas programadas en HouseCall Pro.
+        <div class="hl">Ausencia sin aviso = ausencia injustificada. Dos ausencias injustificadas en un período son causal de revisión de continuidad.</div>
+      </div></div>
+    </div>
+    <div class="acc-item">
+      <button class="acc-btn" onclick="toggleAcc(this)">
+        <div class="acc-ico" style="background:rgba(212,134,10,.08)">⚠️</div>
+        <span class="acc-ttl">Tardanzas — impacto en el equipo</span>
+        <div class="acc-arr">▼</div>
+      </button>
+      <div class="acc-panel"><div class="acc-inner">
+        El shop sale a una hora fija. Si llegas tarde:<br><br>
+        <strong>→</strong> El equipo completo sale tarde.<br>
+        <strong>→</strong> El primer cliente recibe servicio fuera de tiempo.<br>
+        <strong>→</strong> Se corre el riesgo de no completar la ruta del día.<br><br>
+        Tardanzas repetidas se documentan. Si son patrón, se discuten en reunión formal.
+        <div class="hl">La puntualidad en cleaning no es cortesía — es operación. Una tardanza mueve toda la cadena.</div>
+      </div></div>
+    </div>
+    <div class="acc-item">
+      <button class="acc-btn" onclick="toggleAcc(this)">
+        <div class="acc-ico" style="background:rgba(201,131,121,.1)">🏥</div>
+        <span class="acc-ttl">Situaciones de emergencia o enfermedad</span>
+        <div class="acc-arr">▼</div>
+      </button>
+      <div class="acc-panel"><div class="acc-inner">
+        Entendemos que las emergencias ocurren. Lo que se espera es comunicación honesta y oportuna.<br><br>
+        Si estás enferma, avisa lo antes posible para que se pueda reorganizar la ruta. Si la situación es crónica o frecuente, se evalúa de forma individual con Blanca.<br><br>
+        No vengas a trabajar si estás enferma con síntomas que puedan afectar a los clientes o a tus compañeras.
+        <div class="hl">Comunicar a tiempo siempre es mejor que desaparecer. La honestidad es parte de la cultura de MIC.</div>
+      </div></div>
+    </div>
+  </div>
+  <div class="callout warn" style="margin-top:1.5rem">
+    <span class="callout-ico">📌</span>
+    <div class="callout-body">
+      <strong>Primer mes — período de estabilización</strong>
+      <p>Los primeros 14 días son de ajuste y aprendizaje. Hay checkpoints en los días 1, 3, 7 y 14. Estar presente y puntual durante este período es especialmente importante para tu evaluación de permanencia.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- INSUMOS -->
+<section id="insumos" style="background:var(--bg2)">
+<div class="wrap reveal">
+  <div class="sec-head">
+    <p class="sec-label">Lo que usamos</p>
+    <h2 class="sec-title">Insumos y químicos</h2>
+    <p class="sec-desc">Cada químico tiene su área. Usarlos mal puede dañar las superficies del cliente — o ponerte en riesgo a ti.</p>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:.9rem;margin-bottom:1.5rem">
+    <div style="border-radius:var(--rs);padding:1.15rem 1rem;text-align:center;background:#EFF4FB">
+      <span style="font-size:2rem;margin-bottom:.5rem;display:block">🍳</span>
+      <p style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#185FA5">Cocina</p>
+      <p style="font-size:.76rem;margin-top:.3rem;color:var(--muted)">Desengrasante · <strong>nunca</strong> aplicar directo, siempre con esponja y agua</p>
+    </div>
+    <div style="border-radius:var(--rs);padding:1.15rem 1rem;text-align:center;background:#EDFAF3">
+      <span style="font-size:2rem;margin-bottom:.5rem;display:block">🚿</span>
+      <p style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#0F6E56">Baños</p>
+      <p style="font-size:.76rem;margin-top:.3rem;color:var(--muted)">Desinfectante · removedor de sarro · antihongos para regadera</p>
+    </div>
+    <div style="border-radius:var(--rs);padding:1.15rem 1rem;text-align:center;background:#FDF5E6">
+      <span style="font-size:2rem;margin-bottom:.5rem;display:block">🪟</span>
+      <p style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#8B6914">Vidrios</p>
+      <p style="font-size:.76rem;margin-top:.3rem;color:var(--muted)">Líquido para vidrios y espejos · toalla especial seca</p>
+    </div>
+    <div style="border-radius:var(--rs);padding:1.15rem 1rem;text-align:center;background:#F8F0FB">
+      <span style="font-size:2rem;margin-bottom:.5rem;display:block">🪵</span>
+      <p style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#7B2D80">Pisos</p>
+      <p style="font-size:.76rem;margin-top:.3rem;color:var(--muted)">Líquido de piso · Fabuloso almendras · producto específico para madera</p>
+    </div>
+    <div style="border-radius:var(--rs);padding:1.15rem 1rem;text-align:center;background:#EFF4FB">
+      <span style="font-size:2rem;margin-bottom:.5rem;display:block">🍽️</span>
+      <p style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#185FA5">Trastes</p>
+      <p style="font-size:.76rem;margin-top:.3rem;color:var(--muted)">Dawn · solo si hay 10 o menos. Más de 10: <strong>reportar</strong></p>
+    </div>
+  </div>
+  <div class="callout warn">
+    <span class="callout-ico">⚗️</span>
+    <div class="callout-body">
+      <strong>NUNCA mezclar químicos</strong>
+      <p>Mezclar cloro con desengrasante, o cualquier combinación de productos sin conocimiento, puede crear gases tóxicos peligrosos. Si no sabes si dos productos son compatibles, pregunta antes de usarlos juntos. Tu seguridad es primero.</p>
+    </div>
+  </div>
+  <div class="callout info" style="margin-top:.75rem">
+    <span class="callout-ico">🔋</span>
+    <div class="callout-body">
+      <strong>Rellenar botellas antes de salir del shop</strong>
+      <p>Al terminar el día, verifica que todas tus botellas estén llenas para el día siguiente. Llegar a casa del cliente sin el líquido correcto no tiene solución en el campo. El reabastecimiento es responsabilidad de cada trabajadora.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- HERRAMIENTAS -->
+<section id="herramientas">
+<div class="wrap reveal">
+  <div class="sec-head">
+    <p class="sec-label">Tu equipo de trabajo</p>
+    <h2 class="sec-title">Herramientas</h2>
+    <p class="sec-desc">Toca cada herramienta para ver cómo se usa correctamente en Maid in the City.</p>
+  </div>
+  <div class="ins-grid">
+    <div class="ins-card" onclick="openModal('aspiradora')">
+      <span class="iico">🌀</span><span class="iname">Aspiradora</span><span class="itap">Toca para más info</span>
+      <div class="tick-badge">✓</div>
+    </div>
+    <div class="ins-card" onclick="openModal('trapeadores')">
+      <span class="iico">🧹</span><span class="iname">Trapeadores</span><span class="itap">Toca para más info</span>
+      <div class="tick-badge">✓</div>
+    </div>
+    <div class="ins-card" onclick="openModal('sacudidores')">
+      <span class="iico">✨</span><span class="iname">Sacudidores</span><span class="itap">Toca para más info</span>
+      <div class="tick-badge">✓</div>
+    </div>
+    <div class="ins-card" onclick="openModal('cepillo')">
+      <span class="iico">🪥</span><span class="iname">Cepillo Ajustable</span><span class="itap">Toca para más info</span>
+      <div class="tick-badge">✓</div>
+    </div>
+    <div class="ins-card" onclick="openModal('trapos')">
+      <span class="iico">🎨</span><span class="iname">Trapos por Color</span><span class="itap">Toca para más info</span>
+      <div class="tick-badge">✓</div>
+    </div>
+    <div class="ins-card" onclick="openModal('esponjas')">
+      <span class="iico">🧽</span><span class="iname">Esponjas</span><span class="itap">Toca para más info</span>
+      <div class="tick-badge">✓</div>
+    </div>
+    <div class="ins-card" onclick="openModal('guantes')">
+      <span class="iico">🧤</span><span class="iname">Guantes</span><span class="itap">Toca para más info</span>
+      <div class="tick-badge">✓</div>
+    </div>
+    <div class="ins-card" onclick="openModal('tapabocas')">
+      <span class="iico">😷</span><span class="iname">Tapabocas</span><span class="itap">Toca para más info</span>
+      <div class="tick-badge">✓</div>
+    </div>
+  </div>
+  <div style="margin-top:1.25rem;background:rgba(201,131,121,.07);border:1px solid rgba(201,131,121,.2);border-radius:var(--rs);padding:.9rem 1.1rem;display:flex;align-items:center;gap:.7rem;font-size:.82rem;color:var(--muted)">
+    <span>💡</span>
+    <span>Cada trabajadora es responsable de su propio equipo. No depender de otra compañera para herramientas evita perder tiempo y mejora la calidad del servicio.</span>
+  </div>
+</div>
+</section>
+
+<!-- SELLO DE CALIDAD -->
+<section id="calidad" style="background:var(--bg2)">
+<div class="wrap reveal">
+  <div class="sec-head">
+    <p class="sec-label">Estándar MIC</p>
+    <h2 class="sec-title">Sello de calidad</h2>
+    <p class="sec-desc">Este es el orden de trabajo que garantiza que cada casa quede con el estándar de Maid in the City. No se improvisa — se sigue el método.</p>
+  </div>
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-num">1</div>
+      <p class="step-title">Baños</p>
+      <p class="step-who">Persona 1 (equipo de 2) · Persona 3 (equipo de 3)</p>
+      <p class="step-body">Al entrar: sacar y sacudir tapetes. Remojar inodoro con desinfectante desde el inicio (tapa, base y piso). Tallar regadera con cepillo ajustable de arriba hacia abajo. Lavar lavamanos y llaves revisando sarro. Secar todo con toalla húmeda y luego seca. Volver al inodoro ya remojado: tallar de atrás hacia adelante.</p>
+      <ul class="step-rules">
+        <li>Remojar primero, tallar después — es el orden correcto</li>
+        <li>Usar cepillo ajustable (Tanaka) en regadera y detrás de la tina</li>
+        <li>Secar vidrios de ducha con toalla especial — sin rayas</li>
+      </ul>
+    </div>
+    <div class="step-card">
+      <div class="step-num">2</div>
+      <p class="step-title">Cocina</p>
+      <p class="step-who">Persona 1 · también responsable del comedor</p>
+      <p class="step-body">Sacar y sacudir tapetes. Preparar lavadero con agua y jabón Dawn — remojar patillas de estufa, plato del microondas y partes de cafetera. Remojar estufa y microondas con esponja y agua (nunca desengrasante directo). Recorrer counter de izquierda a derecha. Mover todos los objetos para limpiar debajo.</p>
+      <ul class="step-rules">
+        <li>Nunca desengrasante directo — siempre con esponja y agua</li>
+        <li>Refrigerador: solo por fuera y orillas. No tocar interior</li>
+        <li>Horno: solo puerta y orillas visibles. No por dentro</li>
+        <li>Trastes: máximo 10. Más de 10 → reportar</li>
+        <li>Basura sale inmediatamente hacia afuera</li>
+      </ul>
+    </div>
+    <div class="step-card">
+      <div class="step-num">3</div>
+      <p class="step-title">Sacudir (Dusting)</p>
+      <p class="step-who">Persona 2 (equipo de 2) · Persona 1 (equipo de 3)</p>
+      <p class="step-body">Siempre de arriba hacia abajo. El polvo cae — si limpias el piso primero, lo contaminas de nuevo. Iniciar desde muebles altos, ventiladores, cornisas y estantes. Terminar en superficies bajas. Avanzar de izquierda a derecha por el cuarto.</p>
+      <ul class="step-rules">
+        <li>Arriba → abajo siempre, sin excepciones</li>
+        <li>Izquierda → derecha para no omitir zonas</li>
+        <li>Bajo muebles y camas: sacar con sacudidor</li>
+      </ul>
+    </div>
+    <div class="step-card">
+      <div class="step-num">4</div>
+      <p class="step-title">Aspirar</p>
+      <p class="step-who">Persona 2 (ambos equipos)</p>
+      <p class="step-body">Conectar en el enchufe más lejano. Empezar con el tubo en detalles: orillas, esquinas, bordes. Aspirar en líneas ordenadas avanzando hacia la salida. Si hay madera y alfombra: primero todas las alfombras. Cuando el cable no alcanza: mover al siguiente enchufe. Terminar exactamente en la puerta de salida.</p>
+      <ul class="step-rules">
+        <li>Conectar en enchufe más lejano — avanzar hacia la salida</li>
+        <li>Sacar la aspiradora inmediatamente al terminar</li>
+        <li>No dejarla adentro — estorba al que va a trapear</li>
+      </ul>
+    </div>
+    <div class="step-card">
+      <div class="step-num">5</div>
+      <p class="step-title">Trapear</p>
+      <p class="step-who">Quien termine primero apoya trapeando</p>
+      <p class="step-body">Solo después de que el piso esté barrido o aspirado. Nunca trapear sobre suciedad sin limpiar — arrastra la suciedad y la riega. Mínimo 4 trapeadores por equipo de 2. Se usan también como escoba en casos necesarios. Piso de cocina: si está mojado del servicio, barrer y luego trapear.</p>
+      <ul class="step-rules">
+        <li>Primero barrer/aspirar — después trapear</li>
+        <li>Cada quien responsable de sus propios trapeadores</li>
+        <li>No compartir trapeadores entre áreas sucias</li>
+      </ul>
+    </div>
+    <div class="step-card" style="border-top-color:var(--green)">
+      <div class="step-num" style="background:var(--green)">✓</div>
+      <p class="step-title">Inspección final</p>
+      <p class="step-who">Todas — antes de salir</p>
+      <p class="step-body">Recorrer visualmente todas las áreas antes de salir. Verificar que ningún rincón quedó sin limpiar. Confirmar que se dejó todo en su lugar original. Recoger todo el material. Salir al carro para cargar.</p>
+      <ul class="step-rules">
+        <li>No salir sin recorrido visual final</li>
+        <li>Material cargado: herramientas, cubetas, botellas</li>
+        <li>Al terminar: salir al carro. No quedarse adentro</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout ok" style="margin-top:2rem">
+    <span class="callout-ico">⭐</span>
+    <div class="callout-body">
+      <strong>El sello de calidad MIC es el resultado, no el proceso</strong>
+      <p>Una casa con el sello de calidad es una casa donde el cliente no encuentra nada que señalar — porque nosotras ya lo encontramos y lo corregimos primero. La inspección final es la diferencia entre un trabajo terminado y un trabajo de calidad.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- OSHA -->
+<section id="osha">
+<div class="wrap reveal">
+  <div class="sec-head">
+    <p class="sec-label">Seguridad laboral · OSHA</p>
+    <h2 class="sec-title">Posturas correctas</h2>
+    <p class="sec-desc">Tu cuerpo es tu herramienta más valiosa — cuídalo. Alterna entre correcto e incorrecto para comparar.</p>
+  </div>
+  <div class="pos-grid">
+    <div class="pos-card">
+      <div class="pos-head"><p class="pos-num">Postura 01</p><p class="pos-name">Levantar objetos del piso</p></div>
+      <div class="pos-body">
+        <div class="toggle-row">
+          <button class="tbtn ok on" onclick="togglePos(this,'ok',1)">✓ Correcto</button>
+          <button class="tbtn bad" onclick="togglePos(this,'bad',1)">✗ Incorrecto</button>
+        </div>
+        <div class="pos-fig">
+          <svg id="p1ok" width="160" height="175" viewBox="0 0 160 175" fill="none">
+            <circle cx="80" cy="22" r="14" fill="#1A7A4A" opacity=".15" stroke="#1A7A4A" stroke-width="2.5"/>
+            <line x1="80" y1="36" x2="80" y2="50" stroke="#1A7A4A" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="80" y1="50" x2="77" y2="92" stroke="#1A7A4A" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="77" y1="92" x2="52" y2="125" stroke="#1A7A4A" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="77" y1="92" x2="108" y2="125" stroke="#1A7A4A" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="52" y1="125" x2="48" y2="165" stroke="#1A7A4A" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="108" y1="125" x2="112" y2="165" stroke="#1A7A4A" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="38" y1="165" x2="58" y2="165" stroke="#1A7A4A" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="102" y1="165" x2="122" y2="165" stroke="#1A7A4A" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="75" y1="62" x2="55" y2="105" stroke="#1A7A4A" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="82" y1="62" x2="100" y2="105" stroke="#1A7A4A" stroke-width="2.5" stroke-linecap="round"/>
+            <rect x="55" y="105" width="45" height="30" rx="4" fill="#1A7A4A" opacity=".12" stroke="#1A7A4A" stroke-width="1.5"/>
+            <circle cx="135" cy="20" r="12" fill="#1A7A4A"/>
+            <text x="135" y="25" text-anchor="middle" fill="white" font-size="13" font-weight="bold">✓</text>
+            <text x="20" y="130" fill="#1A7A4A" font-size="8" font-weight="600">RODILLAS</text>
+            <text x="20" y="140" fill="#1A7A4A" font-size="8" font-weight="600">DOBLADAS</text>
+          </svg>
+          <svg id="p1bad" width="160" height="175" viewBox="0 0 160 175" fill="none" style="display:none">
+            <circle cx="50" cy="55" r="14" fill="#C0392B" opacity=".15" stroke="#C0392B" stroke-width="2.5"/>
+            <line x1="95" y1="78" x2="50" y2="55" stroke="#C0392B" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="95" y1="78" x2="82" y2="160" stroke="#C0392B" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="95" y1="78" x2="108" y2="160" stroke="#C0392B" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="72" y1="160" x2="92" y2="160" stroke="#C0392B" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="98" y1="160" x2="118" y2="160" stroke="#C0392B" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="60" y1="65" x2="38" y2="105" stroke="#C0392B" stroke-width="2.5" stroke-linecap="round"/>
+            <rect x="28" y="100" width="35" height="22" rx="4" fill="#C0392B" opacity=".12" stroke="#C0392B" stroke-width="1.5"/>
+            <circle cx="135" cy="20" r="12" fill="#C0392B"/>
+            <text x="135" y="25" text-anchor="middle" fill="white" font-size="14" font-weight="bold">✗</text>
+            <text x="110" y="95" fill="#C0392B" font-size="8.5" font-weight="700">ESPALDA</text>
+            <text x="110" y="105" fill="#C0392B" font-size="8.5" font-weight="700">CURVADA</text>
+          </svg>
+        </div>
+        <div class="pos-tip ok" id="tip1ok"><strong>✓ Técnica correcta</strong>Dobla las rodillas, mantén la espalda recta y acerca la carga al cuerpo. Usa los músculos de las piernas, no la espalda.</div>
+        <div class="pos-tip bad" id="tip1bad" style="display:none"><strong>✗ Evita esto</strong>Doblar la espalda con las piernas rectas sobrecarga la zona lumbar. Con el trabajo repetitivo de cleaning, genera lesiones crónicas.</div>
+      </div>
+    </div>
+    <div class="pos-card">
+      <div class="pos-head"><p class="pos-num">Postura 02</p><p class="pos-name">Alcanzar alturas</p></div>
+      <div class="pos-body">
+        <div class="toggle-row">
+          <button class="tbtn ok on" onclick="togglePos(this,'ok',2)">✓ Correcto</button>
+          <button class="tbtn bad" onclick="togglePos(this,'bad',2)">✗ Incorrecto</button>
+        </div>
+        <div class="pos-fig">
+          <svg id="p2ok" width="160" height="175" viewBox="0 0 160 175" fill="none">
+            <rect x="50" y="140" width="70" height="14" rx="4" fill="#1A7A4A" opacity=".15" stroke="#1A7A4A" stroke-width="1.5"/>
+            <rect x="58" y="126" width="54" height="14" rx="3" fill="#1A7A4A" opacity=".1" stroke="#1A7A4A" stroke-width="1.5"/>
+            <circle cx="85" cy="20" r="14" fill="#1A7A4A" opacity=".15" stroke="#1A7A4A" stroke-width="2.5"/>
+            <line x1="85" y1="34" x2="85" y2="88" stroke="#1A7A4A" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="85" y1="88" x2="75" y2="126" stroke="#1A7A4A" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="85" y1="88" x2="95" y2="126" stroke="#1A7A4A" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="65" y1="126" x2="85" y2="126" stroke="#1A7A4A" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="85" y1="126" x2="105" y2="126" stroke="#1A7A4A" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="88" y1="52" x2="105" y2="28" stroke="#1A7A4A" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="82" y1="52" x2="60" y2="48" stroke="#1A7A4A" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="135" cy="20" r="12" fill="#1A7A4A"/>
+            <text x="135" y="25" text-anchor="middle" fill="white" font-size="13" font-weight="bold">✓</text>
+            <text x="28" y="52" fill="#1A7A4A" font-size="7.5" font-weight="700">3 PUNTOS</text>
+            <text x="28" y="61" fill="#1A7A4A" font-size="7.5" font-weight="700">CONTACTO</text>
+          </svg>
+          <svg id="p2bad" width="160" height="175" viewBox="0 0 160 175" fill="none" style="display:none">
+            <rect x="50" y="140" width="70" height="14" rx="4" fill="#C0392B" opacity=".15" stroke="#C0392B" stroke-width="1.5"/>
+            <circle cx="120" cy="30" r="14" fill="#C0392B" opacity=".15" stroke="#C0392B" stroke-width="2.5"/>
+            <line x1="80" y1="88" x2="120" y2="34" stroke="#C0392B" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="80" y1="88" x2="72" y2="140" stroke="#C0392B" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="80" y1="88" x2="92" y2="140" stroke="#C0392B" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="62" y1="140" x2="82" y2="140" stroke="#C0392B" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="82" y1="140" x2="102" y2="140" stroke="#C0392B" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="25" cy="20" r="12" fill="#C0392B"/>
+            <text x="25" y="25" text-anchor="middle" fill="white" font-size="14" font-weight="bold">✗</text>
+            <text x="1" y="75" fill="#C0392B" font-size="7.5" font-weight="700">CUERPO</text>
+            <text x="1" y="84" fill="#C0392B" font-size="7.5" font-weight="700">DESBALANCEADO</text>
+          </svg>
+        </div>
+        <div class="pos-tip ok" id="tip2ok"><strong>✓ Técnica correcta</strong>Cuerpo centrado. 3 puntos de contacto con el escabel. No alcances más allá de los hombros — mueve el escabel.</div>
+        <div class="pos-tip bad" id="tip2bad" style="display:none"><strong>✗ Evita esto</strong>Estirarse al lado rompe el equilibrio. Una caída desde altura puede causar lesiones serias o incapacidad.</div>
+      </div>
+    </div>
+    <div class="pos-card">
+      <div class="pos-head"><p class="pos-num">Postura 03</p><p class="pos-name">Arrodillarse (baños, pisos)</p></div>
+      <div class="pos-body">
+        <div class="toggle-row">
+          <button class="tbtn ok on" onclick="togglePos(this,'ok',3)">✓ Correcto</button>
+          <button class="tbtn bad" onclick="togglePos(this,'bad',3)">✗ Incorrecto</button>
+        </div>
+        <div class="pos-fig">
+          <svg id="p3ok" width="160" height="175" viewBox="0 0 160 175" fill="none">
+            <circle cx="82" cy="22" r="14" fill="#1A7A4A" opacity=".15" stroke="#1A7A4A" stroke-width="2.5"/>
+            <line x1="82" y1="36" x2="82" y2="90" stroke="#1A7A4A" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="82" y1="90" x2="95" y2="125" stroke="#1A7A4A" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="95" y1="125" x2="95" y2="155" stroke="#1A7A4A" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="82" y1="155" x2="108" y2="155" stroke="#1A7A4A" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="82" y1="90" x2="62" y2="130" stroke="#1A7A4A" stroke-width="2.5" stroke-linecap="round"/>
+            <ellipse cx="62" cy="133" rx="14" ry="8" fill="#1A7A4A" opacity=".2" stroke="#1A7A4A" stroke-width="1.5"/>
+            <text x="62" y="136" text-anchor="middle" fill="#1A7A4A" font-size="6.5" font-weight="700">RODILLERA</text>
+            <line x1="62" y1="130" x2="50" y2="160" stroke="#1A7A4A" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="79" y1="55" x2="58" y2="88" stroke="#1A7A4A" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="84" y1="55" x2="104" y2="80" stroke="#1A7A4A" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="135" cy="20" r="12" fill="#1A7A4A"/>
+            <text x="135" y="25" text-anchor="middle" fill="white" font-size="13" font-weight="bold">✓</text>
+          </svg>
+          <svg id="p3bad" width="160" height="175" viewBox="0 0 160 175" fill="none" style="display:none">
+            <circle cx="70" cy="45" r="14" fill="#C0392B" opacity=".15" stroke="#C0392B" stroke-width="2.5"/>
+            <path d="M85,100 Q78,72 70,45" stroke="#C0392B" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+            <line x1="85" y1="100" x2="68" y2="138" stroke="#C0392B" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="85" y1="100" x2="102" y2="138" stroke="#C0392B" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="68" y1="138" x2="55" y2="162" stroke="#C0392B" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="102" y1="138" x2="115" y2="162" stroke="#C0392B" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="75" y1="70" x2="40" y2="108" stroke="#C0392B" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="135" cy="20" r="12" fill="#C0392B"/>
+            <text x="135" y="25" text-anchor="middle" fill="white" font-size="14" font-weight="bold">✗</text>
+            <text x="60" y="173" fill="#C0392B" font-size="7.5" font-weight="700" text-anchor="middle">SIN PROTECCIÓN</text>
+          </svg>
+        </div>
+        <div class="pos-tip ok" id="tip3ok"><strong>✓ Técnica correcta</strong>Una rodilla en el piso con rodillera, pie contrario plano, espalda recta. Usar rodillera — especialmente en baños y pisos duros.</div>
+        <div class="pos-tip bad" id="tip3bad" style="display:none"><strong>✗ Evita esto</strong>Arrodillarse en superficies duras sin protección daña las rodillas. Con el trabajo diario en cleaning, las lesiones se acumulan.</div>
+      </div>
+    </div>
+  </div>
+  <div class="callout info" style="margin-top:2rem">
+    <span class="callout-ico">📋</span>
+    <div class="callout-body">
+      <strong>OSHA y tu seguridad en el trabajo</strong>
+      <p>OSHA (Occupational Safety and Health Administration) establece que los trabajadores deben recibir protección y aplicar prácticas ergonómicas que prevengan lesiones. Usar tu cuerpo correctamente en cleaning no es opcional — es parte del trabajo profesional y de cuidarte a ti misma.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- DOCUMENTOS -->
+<section id="documentos" style="background:var(--bg2)">
+<div class="wrap reveal">
+  <div class="sec-head">
+    <p class="sec-label">Tu paquete completo</p>
+    <h2 class="sec-title">4 documentos oficiales</h2>
+    <p class="sec-desc">Estos son los documentos donde vive el detalle completo de todo lo que aprendiste aquí. Descárgalos y guárdalos en tu celular.</p>
+  </div>
+  <div class="docs-grid">
+    <div class="doc-card">
+      <span class="doc-ico">📘</span>
+      <p class="doc-code">ONB-MIC-001</p>
+      <p class="doc-name">Onboarding Book</p>
+      <p class="doc-desc">Guía completa de tu proceso de ingreso, primeros 14 días y puntos de control de estabilización.</p>
+      <a class="btn-doc" href="https://drive.google.com/file/d/1Kr2oYQtvSAQc1uxOko9PhXwnoSRSpRWh/view?usp=sharing" target="_blank">⬇ Descargar PDF</a>
+    </div>
+    <div class="doc-card">
+      <span class="doc-ico">📋</span>
+      <p class="doc-code">MAN-EMP-MIC-001</p>
+      <p class="doc-name">Manual del Empleado</p>
+      <p class="doc-desc">Documento legal oficial con todas las políticas, derechos y obligaciones bajo la ley de NC. Validado por Alicia Saldierna Consulting.</p>
+      <a class="btn-doc" href="https://drive.google.com/file/d/1DIM5NdIlbMXsdt2aWGORZmGoqmWt6jzM/view?usp=sharing" target="_blank">⬇ Descargar PDF</a>
+    </div>
+    <div class="doc-card">
+      <span class="doc-ico">📄</span>
+      <p class="doc-code">JD-MIC-001 / 002 / 003</p>
+      <p class="doc-name">Descriptivo de Cargos</p>
+      <p class="doc-desc">Descripción oficial de tu puesto: funciones, estándar de desempeño, requisitos físicos y KPIs. Tu mapa profesional.</p>
+      <a class="btn-doc" href="https://drive.google.com/file/d/1KH5iGzGLPX8ic9yqTobuc4yIunpXayOP/view?usp=sharing" target="_blank">⬇ Descargar PDF</a>
+    </div>
+
+  </div>
+  <div class="callout info" style="margin-top:1.5rem">
+    <span class="callout-ico">📌</span>
+    <div class="callout-body">
+      <strong>Guarda estos documentos</strong>
+      <p>Descarga los 4 PDFs y guárdalos en una carpeta en tu celular. Son tus documentos oficiales como empleada de Maid in the City — los necesitarás como referencia durante tu primer mes y en cualquier momento de tu relación laboral con nosotras.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- EVALUACION 30 DIAS -->
+<section id="evaluacion">
+<div class="wrap reveal">
+  <div class="sec-head">
+    <p class="sec-label">Período de prueba</p>
+    <h2 class="sec-title">Tu primer mes con nosotras</h2>
+    <p class="sec-desc">No estás sola en este proceso. Durante los primeros 30 días serás acompañada y evaluada en tres momentos clave — y al final, recibirás tu proceso de avance formal.</p>
+  </div>
+
+  <div class="eval-steps">
+    <div class="eval-card eval-c1">
+      <p class="eval-badge">Supervisión 1</p>
+      <p class="eval-day">Día 7</p>
+      <p class="eval-title">Primera evaluación de campo</p>
+      <p class="eval-body">Revisamos cómo te has adaptado al ritmo de trabajo, tu puntualidad, cómo recibes instrucciones y si tienes claridad sobre el método de limpieza de MIC. Es un check-in de apoyo, no de sanción.</p>
+    </div>
+    <div class="eval-card eval-c2">
+      <p class="eval-badge">Supervisión 2</p>
+      <p class="eval-day">Día 14</p>
+      <p class="eval-title">Revisión de técnica y equipo</p>
+      <p class="eval-body">Evaluamos tu técnica en campo con mayor detalle: secuencia de limpieza, uso correcto de herramientas y químicos, y cómo estás trabajando en equipo con tus compañeras. Aquí se pueden hacer ajustes y entrenar lo que necesites.</p>
+    </div>
+    <div class="eval-card eval-c3">
+      <p class="eval-badge">Supervisión 3 · Final</p>
+      <p class="eval-day">Día 30</p>
+      <p class="eval-title">Evaluación de permanencia y avance</p>
+      <p class="eval-body">Esta es tu primera gran revisión. Se evalúan las cuatro dimensiones completas y se toma la decisión de permanencia. Si el mes fue satisfactorio, recibes tu proceso de avance formal con retroalimentación personalizada.</p>
+    </div>
+  </div>
+
+  <div class="sec-head" style="margin-bottom:1.5rem;text-align:left">
+    <p class="sec-label">Lo que evaluamos</p>
+    <h3 style="font-size:1.15rem;font-weight:800;color:var(--primary)">Las 4 dimensiones de evaluación</h3>
+  </div>
+  <div class="dim-grid">
+    <div class="dim-card">
+      <span class="dim-ico">🌸</span>
+      <div>
+        <p class="dim-name">Cultura</p>
+        <p class="dim-desc">Vives y respetas los valores de Maid in the City. Cuidas el espacio del cliente como si fuera tuyo. Representas a la empresa con dignidad.</p>
+      </div>
+    </div>
+    <div class="dim-card">
+      <span class="dim-ico">🛠️</span>
+      <div>
+        <p class="dim-name">Técnica</p>
+        <p class="dim-desc">Ejecutas el SOP de limpieza correctamente y con calidad. Usas las herramientas y químicos adecuados. El resultado final cumple el sello MIC.</p>
+      </div>
+    </div>
+    <div class="dim-card">
+      <span class="dim-ico">🤝</span>
+      <div>
+        <p class="dim-name">Valores de equipo</p>
+        <p class="dim-desc">Colaboras con tus compañeras sin fricción. Comunicas oportunamente. No generas conflicto ni retrasos que afecten a otras personas.</p>
+      </div>
+    </div>
+    <div class="dim-card">
+      <span class="dim-ico">⏰</span>
+      <div>
+        <p class="dim-name">Compromiso</p>
+        <p class="dim-desc">Puntualidad consistente, presencia responsable y comunicación activa. Cumples lo que dices y avisas cuando no puedes cumplir.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="avance-card">
+    <div class="avance-ico-wrap">🚀</div>
+    <div>
+      <p class="avance-label">Después del día 30</p>
+      <p class="avance-title">Tu proceso de avance</p>
+      <p class="avance-text">Al completar 30 días satisfactorios en Maid in the City, recibirás una reunión formal con Blanca donde se revisará tu desempeño y se diseñará tu camino dentro de la empresa. Esto no es el final — es el inicio de tu trayectoria profesional con nosotras.</p>
+      <div class="avance-pills">
+        <span class="avance-pill">📋 Retroalimentación personalizada</span>
+        <span class="avance-pill">🎯 Plan de desarrollo</span>
+        <span class="avance-pill">🏅 Reconocimiento formal</span>
+        <span class="avance-pill">⬆️ Siguiente nivel</span>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- FIRMA DIGITAL -->
+<section id="firma" class="firma-section">
+<div class="wrap reveal">
+  <div class="sec-head">
+    <p class="sec-label" style="color:rgba(201,131,121,.9)">Aceptación oficial</p>
+    <h2 class="sec-title" style="color:#fff">Confirmación de lectura</h2>
+    <p class="sec-desc" style="color:rgba(255,255,255,.7)">Al completar este formulario confirmas que leíste, entendiste y aceptas todas las reglas, protocolos y políticas de Maid in the City Inc. Esta es tu firma digital de ingreso.</p>
+  </div>
+  <div class="firma-box" id="firma-form-box">
+    <div class="fhead">
+      <span class="ficon">✍️</span>
+      <h3>Firma digital de ingreso</h3>
+      <p>Maid in the City Inc. · Hendersonville, NC</p>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Nombre</label>
+        <input type="text" id="f-nombre" placeholder="Tu nombre" autocomplete="given-name">
+      </div>
+      <div class="form-group">
+        <label>Apellido</label>
+        <input type="text" id="f-apellido" placeholder="Tu apellido" autocomplete="family-name">
+      </div>
+    </div>
+    <div class="form-group" style="margin-bottom:.85rem">
+      <label>Correo electrónico</label>
+      <input type="email" id="f-email" placeholder="tucorreo@email.com" autocomplete="email" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:.75rem 1rem;color:#fff;font-family:'Poppins',sans-serif;font-size:.9rem;outline:none;width:100%;transition:var(--t)">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Fecha</label>
+        <input type="text" id="f-fecha" readonly>
+      </div>
+      <div class="form-group">
+        <label>Hora</label>
+        <input type="text" id="f-hora" readonly>
+      </div>
+    </div>
+    <div class="checkbox-row" onclick="document.getElementById('f-check').click()">
+      <input type="checkbox" id="f-check" onclick="event.stopPropagation()">
+      <label for="f-check">He leído completamente este documento de ingreso de Maid in the City Inc. Entiendo y acepto las reglas de trabajo, el sistema de pago, las políticas de asistencia, los protocolos de calidad, las normas de seguridad OSHA y todos los estándares presentados. Entiendo que este es un documento oficial de inicio de actividad laboral.</label>
+    </div>
+    <button class="btn-firma" id="btn-firmar" onclick="firmar()">
+      <span>✅</span> Confirmar y registrar mi ingreso
+    </button>
+    <p class="config-note" id="cfg-note"></p>
+  </div>
+  <div class="firma-box firma-success" id="firma-success-box">
+    <div class="check-circle">✅</div>
+    <h4>¡Ingreso registrado!</h4>
+    <p>Tu confirmación quedó registrada oficialmente. Esta es tu fecha de inicio de actividad en Maid in the City Inc. Guarda esta pantalla como comprobante.</p>
+    <div class="firma-card" id="firma-card-data"></div>
+  </div>
+</div>
+</section>
+</main>
+
+<footer>
+  <div style="margin-bottom:1rem">
+    <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+      <circle cx="30" cy="30" r="28" stroke="rgba(255,255,255,.15)" stroke-width="1.2"/>
+      <circle cx="30" cy="30" r="21" stroke="rgba(201,131,121,.3)" stroke-width="1"/>
+      <text x="30" y="26" text-anchor="middle" fill="#C98379" font-family="Poppins,Arial,sans-serif" font-weight="800" font-size="7">Maid in the</text>
+      <text x="30" y="37" text-anchor="middle" fill="white" font-family="Poppins,Arial,sans-serif" font-weight="700" font-size="9">City</text>
+      <text x="30" y="46" text-anchor="middle" fill="rgba(255,255,255,.45)" font-family="Poppins,Arial,sans-serif" font-size="4.5">INC.</text>
+    </svg>
+  </div>
+  <p class="f-name">Maid in the City Inc.</p>
+  <p class="f-sub">Documento oficial de ingreso · Hendersonville, NC</p>
+  <div class="f-line"></div>
+  <p class="f-tag">"Tu presencia, tu técnica y tu compromiso son los que hacen la diferencia en cada hogar."</p>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModalOutside(event)">
+  <div class="modal-box" id="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<script>
+// ── CALENDARIO DE PAGO ──────────────────────────────────
+(function buildCalendars(){
+  // Fechas de pago quincenales: viernes cada 14 días desde julio 3, 2026
+  const payDates = {
+    7:[3,17,31],
+    8:[14,28],
+    9:[11,25],
+    10:[9,23],
+    11:[6,20],
+    12:[4,18]
+  };
+  const meses=['','Enero','Febrero','Marzo','Abril','Mayo','Junio',
+                'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+  const dow=['D','L','M','M','J','V','S'];
+  const hoy=new Date();
+  const container=document.getElementById('cal-months-container');
+  if(!container)return;
+
+  for(let m=7;m<=12;m++){
+    const primerDia=new Date(2026,m-1,1).getDay();
+    const diasEnMes=new Date(2026,m,0).getDate();
+    const pays=payDates[m]||[];
+
+    let html=`<div class="cal-month">
+      <div class="cal-mhead">${meses[m]} 2026</div>
+      <div class="cal-dow">${dow.map(d=>`<span>${d}</span>`).join('')}</div>
+      <div class="cal-days-grid">`;
+
+    for(let i=0;i<primerDia;i++)html+=`<div class="cal-day-cell empty-cell"></div>`;
+
+    for(let d=1;d<=diasEnMes;d++){
+      const isPay=pays.includes(d);
+      const isHoy=hoy.getFullYear()===2026&&hoy.getMonth()+1===m&&hoy.getDate()===d;
+      let cls='cal-day-cell';
+      if(isPay)cls+=' pay-day';
+      if(isHoy)cls+=' today-cell';
+      html+=`<div class="${cls}" title="${isPay?'💰 Día de pago':''}"> ${d}</div>`;
+    }
+    html+=`</div></div>`;
+    container.innerHTML+=html;
+  }
+})();
+// ────────────────────────────────────────────────────────
+
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby5SgrLc4m16s68umKBNsytJ3FuKVT20D2VlGVGkbtL2Bx3lSbqU2SuoMJrsSYwD5_fkw/exec';
+const MIC_EMAIL = 'blancaestella5@icloud.com';
+
+const toolData = {
+  aspiradora:{ico:'🌀',title:'Aspiradora',badge:'Protocolo MIC — enchufe más lejano',
+    photo:'https://images.unsplash.com/photo-1558317374-067fb5f30001?auto=format&fit=crop&w=700&q=85',
+    desc:'En Maid in the City la aspiradora tiene un protocolo específico de uso. No se conecta en cualquier enchufe — se sigue una ruta de siempre hacia la salida.',
+    uses:[
+      {ico:'🔌',title:'Conectar en el enchufe más lejano',desc:'Desde el punto más lejano del cuarto o área es donde se empieza. Esto garantiza que siempre avanzas hacia la salida.'},
+      {ico:'🔍',title:'Primero el detalle con el tubo',desc:'Antes de aspirar el piso, recorrer todas las orillas, esquinas y bordes con el tubo y cepillo especial.'},
+      {ico:'📏',title:'Aspirar en líneas ordenadas',desc:'Avanzar de atrás hacia adelante en líneas — nunca saltando zonas. Terminar exactamente en la puerta de salida.'},
+      {ico:'🚗',title:'Sacar al terminar — inmediatamente',desc:'Al terminar de aspirar, la aspiradora sale de la casa de inmediato. No se deja adentro — estorba a quien va a trapear.'},
+    ],
+    warning:'⚠️ Si hay piso de madera Y alfombra, primero todas las alfombras. La aspiradora no se usa en pisos duros — para eso están los trapeadores y sacudidores.'
+  },
+  trapeadores:{ico:'🧹',title:'Trapeadores',badge:'Mínimo 4 por equipo de 2',
+    photo:'https://images.unsplash.com/photo-1563453392212-326f5e854473?auto=format&fit=crop&w=700&q=85',
+    desc:'Los trapeadores son la herramienta principal de cierre en cada casa. Se usan después de barrer o aspirar — nunca antes. En MIC se llevan mínimo 4 por equipo.',
+    uses:[
+      {ico:'4️⃣',title:'Mínimo 4 trapeadores por equipo',desc:'En equipo de 2 personas se llevan al menos 4 trapeadores. Esto permite cambiar cuando uno se ensucia y no compartir entre áreas.'},
+      {ico:'🍳',title:'Piso de cocina',desc:'Si la cocina quedó mojada del servicio: barrer primero y luego trapear. Nunca trapear sin barrer.'},
+      {ico:'🔄',title:'También funcionan como escoba',desc:'El trapeador en seco puede usarse para barrer cuando sea necesario — ahorra tiempo y reduce los traslados entre herramientas.'},
+    ],
+    warning:'⚠️ NUNCA trapear sobre suciedad sin barrer — arrastra la suciedad y la distribuye por todo el piso. Primero siempre limpiar el área y después trapear.',
+    tip:'✅ Cada trabajadora es responsable de sus propios trapeadores. No depender de tu compañera para esto — genera conflicto y retrasos en la ruta.'
+  },
+  sacudidores:{ico:'✨',title:'Sacudidores (Dusting)',badge:'Arriba → Abajo siempre',
+    photo:'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=700&q=85',
+    desc:'Los sacudidores se usan para remover polvo de todas las superficies antes de trapear. La regla es absoluta: siempre de arriba hacia abajo.',
+    uses:[
+      {ico:'⬆️',title:'Empezar siempre por arriba',desc:'Ventiladores, cornisas, estantes altos, parte superior de muebles. El polvo cae — si limpias el piso primero, lo contaminas de nuevo.'},
+      {ico:'🪟',title:'Marcos, cuadros y muebles',desc:'Sacudir marcos de ventanas, cuadros, lámparas y muebles. No golpear — movimiento suave para no dispersar el polvo al aire.'},
+      {ico:'🛏️',title:'Bajo camas y sofás',desc:'Usar el sacudidor de mango largo para llegar debajo de muebles sin moverlos. Zona de alta acumulación de polvo y pelos.'},
+    ],
+    tip:'✅ Avanza de izquierda a derecha en cada cuarto para garantizar que no se omite ninguna zona. Al terminar el cuarto con sacudir, el piso ya está listo para aspirar o trapear.'
+  },
+  cepillo:{ico:'🪥',title:'Cepillo Ajustable (Tanaka)',badge:'Para regadera y tina',
+    photo:'https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?auto=format&fit=crop&w=700&q=85',
+    desc:'El cepillo ajustable (llamado Tanaka en MIC) es la herramienta específica para tallar la regadera y el área detrás de la tina. Su tamaño se adapta a espacios de diferente tamaño.',
+    uses:[
+      {ico:'🚿',title:'Regadera — de arriba hacia abajo',desc:'Tallar con el cepillo desde arriba hacia abajo. Si hay rincones donde no entra el cepillo, usar el estropajo manual.'},
+      {ico:'🛁',title:'Espacio detrás de la tina',desc:'Muchas tinas tienen un espacio en la parte de atrás. El cepillo adaptable se mete lo mejor posible para limpiar ese espacio difícil.'},
+      {ico:'🔢',title:'Siempre con producto remojando',desc:'Aplicar el desinfectante/antihongos y dejar actuar antes de tallar. El producto hace el trabajo pesado — el cepillo ayuda a remover.'},
+    ],
+    tip:'✅ Las puertas de vidrio de la regadera tienen un sarro ligero — lavarlas con el cepillo lo mejor posible. Secar después con la toalla especial para que no queden rayas.'
+  },
+  trapos:{ico:'🎨',title:'Trapos por Color',badge:'Código MIC — uso obligatorio',
+    photo:'https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?auto=format&fit=crop&w=700&q=85',
+    desc:'Maid in the City usa un sistema de trapos por color que evita la contaminación cruzada entre áreas. Este sistema es de cumplimiento obligatorio en cada servicio.',
+    isTrapos:true
+  },
+  esponjas:{ico:'🧽',title:'Esponjas',badge:'Dos lados, dos funciones',
+    photo:'https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=700&q=85',
+    desc:'Cada esponja tiene dos lados con funciones completamente diferentes. Usar el lado equivocado puede rayar superficies del cliente de forma permanente.',
+    uses:[
+      {ico:'🟡',title:'Lado suave (liso)',desc:'Para superficies delicadas: madera lustrada, espejos, acero inoxidable, superficies del baño que no sean porcelana con sarro. Sin riesgo.'},
+      {ico:'🟢',title:'Lado rugoso (estropajo)',desc:'Para suciedad adherida: azulejos, sarro, grasa incrustada en cocina, porcelana del inodoro. Alta fricción — solo en superficies que la toleran.'},
+    ],
+    warning:'⚠️ NUNCA usar el lado rugoso en: madera, mármol, vidrio, acero inoxidable ni superficies lustradas. El rayado es permanente — y es responsabilidad de quien lo hizo.'
+  },
+  guantes:{ico:'🧤',title:'Guantes',badge:'EPP — uso obligatorio en baños y cocina',
+    photo:'https://images.unsplash.com/photo-1584556604858-1ab47be79f01?auto=format&fit=crop&w=700&q=85',
+    desc:'Los guantes son Equipo de Protección Personal (EPP) de uso obligatorio. Te protegen de los químicos, bacterias y grasa de los servicios.',
+    uses:[
+      {ico:'🚽',title:'Baños — obligatorio siempre',desc:'Sin excepción. El inodoro, la regadera, el lavamanos. Los químicos de baño son corrosivos con contacto prolongado en la piel.'},
+      {ico:'🍳',title:'Cocina — obligatorio',desc:'El desengrasante es un químico fuerte. Poner guantes antes de abrir el frasco — no después de ensuciarte las manos.'},
+      {ico:'🧴',title:'Cualquier químico concentrado',desc:'Si el producto pica al olerlo o tiene etiqueta de precaución, los guantes son obligatorios. Sin discusión.'},
+    ],
+    warning:'⚠️ Cambiar guantes si se rompen. No reutilizar guantes de baño en cocina. Desechar correctamente al terminar la jornada. Un guante roto no protege.'
+  },
+  tapabocas:{ico:'😷',title:'Tapabocas',badge:'Protección respiratoria',
+    photo:'https://images.unsplash.com/photo-1614859612799-b6a1a8cf6a2a?auto=format&fit=crop&w=700&q=85',
+    desc:'El tapabocas protege tus vías respiratorias del polvo y de los vapores de químicos. En limpieza profunda y espacios cerrados, es obligatorio.',
+    uses:[
+      {ico:'💨',title:'Espacios con polvo acumulado',desc:'Habitaciones o closets que no se han limpiado seguido. El polvo levantado puede irritar y dañar las vías respiratorias.'},
+      {ico:'🏠',title:'Deep Cleaning (limpieza profunda)',desc:'Obligatorio durante deep clean. Mayor concentración de polvo, químicos y partículas suspendidas en el aire.'},
+      {ico:'🧴',title:'Químicos fuertes',desc:'Cloro, removedor de sarro concentrado, desengrasante industrial. Los vapores con exposición repetida son dañinos.'},
+    ],
+    tip:'✅ Cubrir NARIZ y BOCA completamente. Si el tapabocas se humedece por sudor o trabajo, cambiar — uno húmedo no filtra. Están disponibles en el shop de MIC.'
+  }
+};
+
+function openModal(id){
+  const t=toolData[id];if(!t)return;
+  let html=`<div class="modal-emoji-box"><span class="big-ico">${t.ico}</span><p class="modal-title">${t.title}</p><span class="modal-badge">${t.badge}</span></div><div class="modal-body-content"><p class="modal-desc">${t.desc}</p>`;
+  if(t.isTrapos){
+    html+=`<p class="modal-section-label">Código de colores — uso obligatorio</p><div class="swatches">
+      <div class="swatch sw-red"><div class="swatch-dot" style="background:#E53935"></div><div class="swatch-info"><p class="swatch-color">🔴 Rojo</p><p class="swatch-area">Baños · Inodoro / Toilet</p><p class="swatch-note">Alta contaminación. Solo para el inodoro. Nunca en otra superficie.</p></div></div>
+      <div class="swatch sw-yellow"><div class="swatch-dot" style="background:#FDD835"></div><div class="swatch-info"><p class="swatch-color">🟡 Amarillo</p><p class="swatch-area">Baños · Piso del baño</p><p class="swatch-note">Exclusivo para el piso del baño. No mezclar con el rojo.</p></div></div>
+      <div class="swatch sw-blue"><div class="swatch-dot" style="background:#1E88E5"></div><div class="swatch-info"><p class="swatch-color">🔵 Azul</p><p class="swatch-area">Baños · Lavamanos / Espejos · Sacudir muebles</p><p class="swatch-note">Para lavamanos, espejos y muebles. Mismo tipo de superficie — sin contaminación cruzada.</p></div></div>
+      <div class="swatch sw-green"><div class="swatch-dot" style="background:#43A047"></div><div class="swatch-info"><p class="swatch-color">🟢 Verde</p><p class="swatch-area">Cocina · Counters, estufa y superficies</p><p class="swatch-note">Exclusivo de cocina. Nunca en baños. La grasa de cocina no cruza a otras áreas.</p></div></div>
+    </div><div class="modal-warning" style="margin-top:1rem"><strong>Regla de hierro</strong>El color equivocado en el área equivocada es una falla de protocolo directa. El sistema protege la salud del cliente y el estándar de calidad MIC.</div>`;
+  } else {
+    if(t.uses&&t.uses.length){html+=`<p class="modal-section-label">Usos y aplicaciones</p><ul class="use-list">`;t.uses.forEach(u=>{html+=`<li><div class="use-ico">${u.ico}</div><div class="use-text"><strong>${u.title}</strong><span>${u.desc}</span></div></li>`;});html+=`</ul>`;}
+    if(t.warning)html+=`<div class="modal-warning"><strong>Atención</strong>${t.warning}</div>`;
+    if(t.tip)html+=`<div class="modal-tip">${t.tip}</div>`;
+  }
+  html+=`</div>`;
+  document.getElementById('modal-content').innerHTML=html;
+  document.getElementById('modal-overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+  const card=document.querySelector(`.ins-card[onclick="openModal('${id}')"]`);
+  if(card)card.classList.add('ticked');
+}
+function closeModal(){document.getElementById('modal-overlay').classList.remove('open');document.body.style.overflow='';}
+function closeModalOutside(e){if(e.target===document.getElementById('modal-overlay'))closeModal();}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+
+window.addEventListener('scroll',()=>{
+  const st=window.scrollY,h=document.documentElement.scrollHeight-innerHeight;
+  document.getElementById('pbar').style.width=(st/h*100)+'%';
+});
+const secs=[...document.querySelectorAll('section[id]')];
+const navLinks=[...document.querySelectorAll('nav a')];
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){navLinks.forEach(a=>a.classList.remove('active'));const active=document.querySelector(`nav a[href="#${e.target.id}"]`);if(active){active.classList.add('active');active.scrollIntoView({inline:'center',behavior:'smooth',block:'nearest'});}}});
+},{threshold:.35});
+secs.forEach(s=>obs.observe(s));
+
+const revObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');});},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>revObs.observe(el));
+
+function toggleAcc(btn){
+  const item=btn.closest('.acc-item');const panel=item.querySelector('.acc-panel');const isOpen=item.classList.contains('open');
+  document.querySelectorAll('.acc-item.open').forEach(i=>{i.classList.remove('open');i.querySelector('.acc-panel').style.maxHeight='0';});
+  if(!isOpen){item.classList.add('open');panel.style.maxHeight=panel.scrollHeight+'px';}
+}
+
+function togglePos(btn,mode,n){
+  btn.parentElement.querySelectorAll('.tbtn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');
+  document.getElementById(`p${n}ok`).style.display=mode==='ok'?'':'none';
+  document.getElementById(`p${n}bad`).style.display=mode==='bad'?'':'none';
+  document.getElementById(`tip${n}ok`).style.display=mode==='ok'?'':'none';
+  document.getElementById(`tip${n}bad`).style.display=mode==='bad'?'':'none';
+}
+
+(function setDateTime(){
+  const now=new Date();
+  document.getElementById('f-fecha').value=now.toLocaleDateString('es-US',{year:'numeric',month:'long',day:'numeric'});
+  document.getElementById('f-hora').value=now.toLocaleTimeString('es-US',{hour:'2-digit',minute:'2-digit'});
+})();
+
+async function firmar(){
+  const nombre=document.getElementById('f-nombre').value.trim();
+  const apellido=document.getElementById('f-apellido').value.trim();
+  const email=document.getElementById('f-email').value.trim();
+  const acepto=document.getElementById('f-check').checked;
+  const fecha=document.getElementById('f-fecha').value;
+  const hora=document.getElementById('f-hora').value;
+  if(!nombre){alert('Por favor ingresa tu nombre.');document.getElementById('f-nombre').focus();return;}
+  if(!apellido){alert('Por favor ingresa tu apellido.');document.getElementById('f-apellido').focus();return;}
+  if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){alert('Por favor ingresa un correo electrónico válido.');document.getElementById('f-email').focus();return;}
+  if(!acepto){alert('Debes marcar la casilla de aceptación para continuar.');return;}
+  const btn=document.getElementById('btn-firmar');btn.disabled=true;btn.innerHTML='<span>⏳</span> Registrando...';
+  const data={nombre,apellido,email,fecha,hora,acepto:true,documento:'Onboarding Oficial — Maid in the City Inc.',micEmail:MIC_EMAIL};
+  if(APPS_SCRIPT_URL){
+    try{await fetch(APPS_SCRIPT_URL,{method:'POST',mode:'no-cors',body:JSON.stringify(data)});}catch(e){console.warn('Apps Script:',e);}
+  }
+  mostrarExito(nombre,apellido,email,fecha,hora);
+}
+
+function mostrarExito(nombre,apellido,email,fecha,hora){
+  document.getElementById('firma-form-box').style.display='none';
+  const box=document.getElementById('firma-success-box');box.style.display='block';
+  document.getElementById('firma-card-data').innerHTML=`
+    <div class="fc-row"><span class="fc-lbl">Nombre completo</span><span class="fc-val">${nombre} ${apellido}</span></div>
+    <div class="fc-row"><span class="fc-lbl">Correo</span><span class="fc-val">${email}</span></div>
+    <div class="fc-row"><span class="fc-lbl">Fecha de inicio</span><span class="fc-val">${fecha}</span></div>
+    <div class="fc-row"><span class="fc-lbl">Hora</span><span class="fc-val">${hora}</span></div>
+    <div class="fc-row"><span class="fc-lbl">Documento</span><span class="fc-val">Onboarding MIC</span></div>
+    <div class="fc-row"><span class="fc-lbl">Estado</span><span class="fc-val" style="color:#F2C3B8">✓ Aceptado</span></div>
+  `;
+}
+
+(function checkConfig(){
+  const note=document.getElementById('cfg-note');
+  if(!APPS_SCRIPT_URL){note.textContent='⚙️ Para activar el registro en Google Sheets, agrega la URL de tu Apps Script en la variable APPS_SCRIPT_URL al inicio del script.';}
+  else{note.textContent='✅ Registro conectado a Google Sheets.';note.style.color='rgba(242,195,184,.9)';}
+})();
+</script>
+</body>
+</html>
