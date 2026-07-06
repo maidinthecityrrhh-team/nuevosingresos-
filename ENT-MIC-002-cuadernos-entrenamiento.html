@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ENT-MIC-002 · Cuadernos de Estudio · Maid In The City</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --rosa:#C98379; --rosa-palida:#F2C3B8; --negro:#0A1014; --taupe:#88736E;
+  --crema:#FBF4F0; --blanco:#FFFFFF; --verde:#4C8A5F; --rojo:#B85C4E;
+  --sombra:0 4px 18px rgba(10,16,20,.08);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Nunito',-apple-system,Segoe UI,sans-serif;background:var(--crema);color:var(--negro);line-height:1.6}
+/* ---------- HEADER ---------- */
+header{background:var(--negro);color:#fff;padding:14px 20px;position:sticky;top:0;z-index:50;box-shadow:0 2px 12px rgba(0,0,0,.25)}
+.head-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.brand{display:flex;align-items:center;gap:10px}
+.brand .logo{width:38px;height:38px;border-radius:50%;background:var(--rosa);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;color:#fff}
+.brand h1{font-size:15px;font-weight:800;letter-spacing:.5px}
+.brand small{display:block;font-size:10.5px;color:var(--rosa-palida);font-weight:600;letter-spacing:1.5px;text-transform:uppercase}
+nav{display:flex;gap:6px;flex-wrap:wrap}
+nav button{background:transparent;border:1.5px solid rgba(255,255,255,.25);color:#fff;padding:7px 13px;border-radius:20px;cursor:pointer;font-family:inherit;font-weight:700;font-size:12.5px;transition:.25s}
+nav button:hover{border-color:var(--rosa);background:rgba(201,131,121,.25)}
+nav button.act{background:var(--rosa);border-color:var(--rosa)}
+nav button .mini{font-size:10px;opacity:.85;display:block;line-height:1}
+/* ---------- LAYOUT ---------- */
+main{max-width:960px;margin:0 auto;padding:26px 18px 80px}
+.view{display:none;animation:fadeUp .45s ease}
+.view.act{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+/* ---------- HERO ---------- */
+.hero{background:linear-gradient(135deg,var(--rosa) 0%,#b06e64 100%);color:#fff;border-radius:22px;padding:38px 32px;margin-bottom:26px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;background:rgba(242,195,184,.28)}
+.hero .code{font-size:11px;letter-spacing:2px;font-weight:800;background:rgba(10,16,20,.28);display:inline-block;padding:4px 12px;border-radius:14px;margin-bottom:14px}
+.hero h2{font-size:clamp(24px,4.5vw,36px);font-weight:900;line-height:1.15;margin-bottom:12px}
+.hero p{max-width:560px;font-size:15.5px;font-weight:600;position:relative;z-index:1}
+/* ---------- CARDS ---------- */
+.card{background:var(--blanco);border-radius:18px;padding:24px;box-shadow:var(--sombra);margin-bottom:18px}
+.sec-title{font-size:12px;font-weight:900;letter-spacing:2.5px;text-transform:uppercase;color:var(--taupe);margin:30px 0 14px;display:flex;align-items:center;gap:10px}
+.sec-title::after{content:"";flex:1;height:2px;background:var(--rosa-palida);border-radius:2px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+.cua-card{background:var(--blanco);border-radius:18px;padding:22px;box-shadow:var(--sombra);cursor:pointer;border:2px solid transparent;transition:.25s;display:flex;flex-direction:column;gap:10px}
+.cua-card:hover{transform:translateY(-4px);border-color:var(--rosa)}
+.cua-card .num{width:44px;height:44px;border-radius:14px;background:var(--rosa-palida);color:var(--negro);font-weight:900;font-size:19px;display:flex;align-items:center;justify-content:center}
+.cua-card h3{font-size:17px;font-weight:800}
+.cua-card p{font-size:13.5px;color:var(--taupe);font-weight:600;flex:1}
+.badge-done{font-size:11px;font-weight:800;color:var(--verde)}
+/* ---------- PROGRESS ---------- */
+.pbar-wrap{background:var(--rosa-palida);border-radius:20px;height:14px;overflow:hidden;position:relative}
+.pbar{height:100%;width:0%;background:linear-gradient(90deg,var(--rosa),#a9635a);border-radius:20px;transition:width .6s cubic-bezier(.22,1,.36,1)}
+.pbar-lbl{font-size:12px;font-weight:800;color:var(--taupe);margin-top:6px;text-align:right}
+.sticky-prog{position:sticky;top:72px;z-index:40;background:var(--crema);padding:10px 0 6px}
+/* ---------- SELLO ---------- */
+.sello{background:var(--negro);color:#fff;border-radius:20px;padding:28px;margin-bottom:22px;display:flex;gap:24px;align-items:center;flex-wrap:wrap}
+.sello-anim{width:120px;height:120px;flex:0 0 120px;background:rgba(242,195,184,.12);border:2px dashed var(--rosa);border-radius:16px;position:relative;overflow:hidden}
+.dot{width:14px;height:14px;border-radius:50%;background:var(--rosa);position:absolute;top:8px;left:8px;animation:zigzag 6s linear infinite;box-shadow:0 0 12px var(--rosa)}
+@keyframes zigzag{
+ 0%{top:8px;left:8px} 15%{top:8px;left:96px} 20%{top:34px;left:96px} 22%{top:34px;left:8px}
+ 37%{top:34px;left:96px} 42%{top:62px;left:96px} 44%{top:62px;left:8px}
+ 59%{top:62px;left:96px} 64%{top:96px;left:96px} 66%{top:96px;left:8px}
+ 82%{top:96px;left:96px} 100%{top:96px;left:96px}
+}
+.sello h3{font-size:20px;font-weight:900;margin-bottom:8px;color:var(--rosa-palida)}
+.sello p{font-size:14.5px;font-weight:600;max-width:520px}
+/* ---------- MODULOS / PASOS ---------- */
+.mod{background:var(--blanco);border-radius:18px;box-shadow:var(--sombra);margin-bottom:20px;overflow:hidden}
+.mod-head{padding:18px 22px;background:var(--rosa-palida);display:flex;align-items:center;gap:14px}
+.mod-head .ic{font-size:26px}
+.mod-head h3{font-size:17.5px;font-weight:900}
+.mod-head small{display:block;font-size:12px;font-weight:700;color:#6d564f}
+.mod-body{padding:10px 18px 18px}
+.paso{display:flex;gap:14px;padding:16px 6px;border-bottom:1.5px dashed #eedcd6;align-items:flex-start;transition:.3s}
+.paso:last-child{border-bottom:none}
+.paso.ok{background:#f4faf5;border-radius:12px;padding-left:12px}
+.paso .pnum{flex:0 0 30px;height:30px;border-radius:50%;background:var(--crema);border:2px solid var(--rosa);color:var(--rosa);font-weight:900;font-size:13px;display:flex;align-items:center;justify-content:center;margin-top:2px;transition:.3s}
+.paso.ok .pnum{background:var(--verde);border-color:var(--verde);color:#fff}
+.paso-c{flex:1}
+.paso-c h4{font-size:14.5px;font-weight:800;margin-bottom:3px}
+.paso-c p{font-size:13.5px;color:#3d444a;font-weight:600}
+.why{margin-top:8px;font-size:12.5px;background:#fdf1ee;border-left:3px solid var(--rosa);padding:8px 12px;border-radius:0 10px 10px 0;font-weight:700;color:#7a4a42}
+details.tip{margin-top:8px}
+details.tip summary{cursor:pointer;font-size:12px;font-weight:900;color:var(--taupe);letter-spacing:.5px;list-style:none;display:inline-flex;align-items:center;gap:6px}
+details.tip summary::before{content:"💡"}
+details.tip[open] summary{color:var(--rosa)}
+details.tip .tip-body{margin-top:6px;font-size:12.5px;background:#faf6ee;border-radius:10px;padding:10px 12px;font-weight:700;color:#6b5d3f}
+.chk{flex:0 0 auto;margin-top:2px}
+.chk button{width:34px;height:34px;border-radius:10px;border:2px solid var(--rosa);background:#fff;cursor:pointer;font-size:16px;color:transparent;transition:.25s}
+.chk button:hover{transform:scale(1.1)}
+.paso.ok .chk button{background:var(--verde);border-color:var(--verde);color:#fff;animation:pop .35s ease}
+@keyframes pop{50%{transform:scale(1.3)}}
+.chk-lbl{font-size:9.5px;font-weight:800;color:var(--taupe);text-align:center;margin-top:3px;width:34px;line-height:1.1}
+/* ---------- TEST ---------- */
+.test{background:var(--blanco);border-radius:18px;box-shadow:var(--sombra);padding:24px;margin:26px 0;border-top:6px solid var(--rosa)}
+.test h3{font-size:19px;font-weight:900;margin-bottom:4px}
+.test>p{font-size:13.5px;color:var(--taupe);font-weight:700;margin-bottom:16px}
+.q{margin-bottom:20px;padding-bottom:16px;border-bottom:1.5px dashed #eedcd6}
+.q h4{font-size:14.5px;font-weight:800;margin-bottom:10px}
+.opt{display:block;width:100%;text-align:left;background:var(--crema);border:2px solid transparent;border-radius:12px;padding:11px 14px;margin-bottom:8px;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:700;transition:.2s}
+.opt:hover{border-color:var(--rosa-palida)}
+.opt.sel{border-color:var(--rosa);background:#fdf1ee}
+.opt.good{border-color:var(--verde);background:#eef8f0}
+.opt.bad{border-color:var(--rojo);background:#fbeeec}
+.expl{font-size:12.5px;font-weight:800;padding:9px 12px;border-radius:10px;display:none;margin-top:4px}
+.expl.show{display:block;animation:fadeUp .3s}
+.expl.g{background:#eef8f0;color:var(--verde)} .expl.b{background:#fbeeec;color:var(--rojo)}
+.btn{background:var(--rosa);color:#fff;border:none;border-radius:14px;padding:13px 26px;font-family:inherit;font-weight:900;font-size:14.5px;cursor:pointer;transition:.25s;letter-spacing:.3px}
+.btn:hover{background:#b06e64;transform:translateY(-2px)}
+.btn:disabled{background:#d8c6c1;cursor:not-allowed;transform:none}
+.btn.sec{background:var(--negro)}
+.result{border-radius:14px;padding:16px 18px;font-weight:800;margin-top:14px;display:none}
+.result.show{display:block;animation:pop .4s}
+.result.pass{background:#eef8f0;color:var(--verde)} .result.fail{background:#fbeeec;color:var(--rojo)}
+/* ---------- FIRMA ---------- */
+.firma{background:var(--negro);color:#fff;border-radius:18px;padding:26px;margin:26px 0;display:none}
+.firma.show{display:block;animation:fadeUp .5s}
+.firma h3{font-size:19px;font-weight:900;color:var(--rosa-palida);margin-bottom:6px}
+.firma p{font-size:13px;font-weight:600;color:#cbb8b2;margin-bottom:16px}
+.firma label{display:block;font-size:11.5px;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--rosa-palida);margin:12px 0 5px}
+.firma input[type=text]{width:100%;max-width:420px;background:rgba(255,255,255,.08);border:1.5px solid var(--taupe);border-radius:12px;padding:12px 14px;color:#fff;font-family:inherit;font-size:15px;font-weight:700}
+.firma input:focus{outline:none;border-color:var(--rosa)}
+.firma .decl{display:flex;gap:10px;align-items:flex-start;margin:16px 0;max-width:520px}
+.firma .decl input{width:20px;height:20px;accent-color:var(--rosa);margin-top:2px}
+.firma .decl span{font-size:13px;font-weight:700}
+.cert{border:2px dashed var(--rosa);border-radius:16px;padding:20px;margin-top:18px;display:none;background:rgba(201,131,121,.1)}
+.cert.show{display:block;animation:pop .5s}
+.cert .sig{font-family:'Brush Script MT','Segoe Script',cursive;font-size:30px;color:var(--rosa-palida);border-bottom:1.5px solid var(--taupe);display:inline-block;padding:0 20px 4px;margin:8px 0}
+.cert p{margin-bottom:2px}
+/* ---------- ENTRENADORA ---------- */
+.trainer{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.trainer .ava{width:74px;height:74px;border-radius:50%;background:linear-gradient(135deg,var(--rosa),var(--taupe));display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900;color:#fff;flex:0 0 74px}
+.trainer h3{font-size:18px;font-weight:900}
+.trainer .rol{font-size:12px;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--rosa)}
+.trainer p{font-size:13.5px;color:#3d444a;font-weight:600;max-width:600px;margin-top:4px}
+.apoyo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:16px}
+.apoyo{background:var(--crema);border-radius:14px;padding:16px;font-size:13px;font-weight:700}
+.apoyo b{display:block;font-size:13.5px;margin-bottom:4px;color:var(--rosa)}
+.lock-note{background:#fdf1ee;border-radius:12px;padding:12px 16px;font-size:13px;font-weight:800;color:#7a4a42;margin-bottom:16px;display:none}
+.lock-note.show{display:block}
+.soon{opacity:.75;border:2px dashed var(--taupe)}
+.soon .tagsoon{display:inline-block;background:var(--taupe);color:#fff;font-size:10.5px;font-weight:900;letter-spacing:1px;padding:3px 10px;border-radius:10px;text-transform:uppercase}
+.foot{max-width:960px;margin:0 auto;padding:20px 18px 40px;font-size:11.5px;color:var(--taupe);font-weight:700;text-align:center}
+/* ---------- PORTADA PEDAGÓGICA ---------- */
+.wel{display:flex;align-items:center;gap:16px;margin:4px 0 14px;position:relative;z-index:1}
+.ava-big{width:64px;height:64px;border-radius:50%;background:rgba(10,16,20,.35);border:3px solid var(--rosa-palida);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;flex:0 0 64px;color:#fff}
+.rol-w{font-size:11px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--rosa-palida)}
+.bubble{background:rgba(255,255,255,.14);border-left:4px solid var(--rosa-palida);border-radius:0 16px 16px 16px;padding:16px 18px;font-size:14.5px;font-weight:600;max-width:640px;position:relative;z-index:1;font-style:italic}
+.cta-big{margin-top:18px;background:var(--negro);font-size:16px;padding:16px 26px;width:100%;max-width:460px;box-shadow:0 6px 18px rgba(10,16,20,.35);position:relative;z-index:1}
+.cta-big:hover{background:#1d2830}
+.ruta{position:relative}
+.rp{display:flex;gap:16px;position:relative;padding-bottom:22px}
+.rp::before{content:"";position:absolute;left:23px;top:48px;bottom:0;width:3px;background:var(--rosa-palida);border-radius:2px}
+.rp:last-child::before{display:none}
+.rp:last-child{padding-bottom:0}
+.rp-ic{width:48px;height:48px;flex:0 0 48px;border-radius:50%;background:var(--rosa-palida);display:flex;align-items:center;justify-content:center;font-size:21px;position:relative;z-index:1;border:3px solid #fff;box-shadow:var(--sombra)}
+.rp h4{font-size:15px;font-weight:900}
+.rp p{font-size:13px;color:var(--taupe);font-weight:700;max-width:560px}
+.cua-path{display:flex;flex-direction:column;gap:14px}
+.cua-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.cua-head h3{flex:1}
+.start-badge{display:none;background:var(--verde);color:#fff;font-size:10.5px;font-weight:900;letter-spacing:1.5px;padding:5px 13px;border-radius:12px;text-transform:uppercase;animation:pulse 1.6s infinite}
+.start-badge.show{display:inline-block}
+@keyframes pulse{50%{transform:scale(1.08)}}
+@media(max-width:640px){.hero{padding:28px 22px}.sello{padding:22px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="head-inner">
+    <div class="brand">
+      <div class="logo">MIC</div>
+      <div>
+        <h1>Maid In The City Inc.</h1>
+        <small>Cuadernos de Estudio · ENT-MIC-002</small>
+      </div>
+    </div>
+    <nav>
+      <button data-v="inicio" class="act">🏠 Inicio</button>
+      <button data-v="c1">Cuaderno 1<span class="mini">Actividades Madre</span></button>
+      <button data-v="c2">Cuaderno 2<span class="mini">Por Áreas</span></button>
+      <button data-v="c3">Cuaderno 3<span class="mini">Servicios</span></button>
+    </nav>
+  </div>
+</header>
+<main>
+
+<!-- ============ INICIO ============ -->
+<section id="v-inicio" class="view act">
+
+  <!-- 1 · Tu entrenadora te recibe -->
+  <div class="hero">
+    <span class="code">ENT-MIC-002 · TU ENTRENAMIENTO OFICIAL</span>
+    <div class="wel">
+      <div class="ava-big">BS</div>
+      <div>
+        <div class="rol-w">Tu entrenadora · Fundadora de MIC</div>
+        <h2 style="font-size:clamp(22px,4vw,30px);margin:0">Blanca Salgado</h2>
+      </div>
+    </div>
+    <div class="bubble">«Bienvenida al equipo. Esta forma de limpiar la construí yo, casa por casa, durante años — y ahora te la voy a enseñar a ti. En las casas te muestro cómo se hace; aquí lo repasas a tu ritmo, las veces que necesites. Ve en orden, marca lo que ya entendiste y pregúntame todo. Aquí nadie aprende sola.»</div>
+    <button class="btn cta-big" id="cta-start" onclick="startNext()">▶ Comenzar mi entrenamiento</button>
+  </div>
+
+  <!-- 2 · Cómo funciona: camino de 4 pasos -->
+  <div class="sec-title">Así funciona · 4 pasos que repites por cuaderno</div>
+  <div class="card">
+    <div class="ruta">
+      <div class="rp"><div class="rp-ic">📖</div><div><h4>1 · Estudia un cuaderno</h4><p>Lee paso por paso y toca el botón ✓ «Ya lo entendí». Tu barra de progreso avanza contigo y se guarda sola en tu teléfono.</p></div></div>
+      <div class="rp"><div class="rp-ic">🧤</div><div><h4>2 · Practica en las casas con Blanca</h4><p>Ella te muestra cada técnica en campo. Repasa el cuaderno antes de salir y después de cada día de trabajo.</p></div></div>
+      <div class="rp"><div class="rp-ic">📝</div><div><h4>3 · Contesta el test</h4><p>Son 5 preguntas al final del cuaderno. Con 4 correctas apruebas — y puedes intentarlo las veces que quieras, sin pena.</p></div></div>
+      <div class="rp"><div class="rp-ic">✍️</div><div><h4>4 · Firma tu constancia</h4><p>Al aprobar, firmas con tu nombre y con un solo botón tu constancia llega a la oficina. ¡Cuaderno logrado!</p></div></div>
+    </div>
+  </div>
+
+  <!-- 3 · La regla de hoy -->
+  <div class="sec-title">Antes de abrir tu primer cuaderno, memoriza esto</div>
+  <div class="sello">
+    <div class="sello-anim"><div class="dot"></div></div>
+    <div>
+      <h3>El Sello de Calidad MIC</h3>
+      <p>Toda limpieza en Maid In The City sigue una sola dirección: <b>de arriba hacia abajo y de izquierda a derecha</b>. Así nada se ensucia dos veces, ningún rincón se olvida y todas trabajamos igual. El punto que ves moviéndose es el recorrido que tus manos harán en cada superficie. Es la única regla que necesitas memorizar hoy: todo lo demás está en los cuadernos.</p>
+    </div>
+  </div>
+
+  <!-- 4 · Ruta de estudio -->
+  <div class="sec-title">Tu ruta de estudio · ve en orden</div>
+  <div class="cua-path">
+    <div class="cua-card" onclick="go('c1')">
+      <div class="cua-head">
+        <div class="num">1</div>
+        <h3>Actividades Madre</h3>
+        <span class="start-badge" id="sb-c1">▶ Empieza aquí</span>
+      </div>
+      <p>Las 5 técnicas base de todo el trabajo: sacudida, aspirado, trapeado, tallado y alfombras. Todo lo demás se construye sobre esto.</p>
+      <div class="pbar-wrap"><div class="pbar" id="mini-p-c1"></div></div>
+      <div class="badge-done" id="mini-b-c1"></div>
+    </div>
+    <div class="cua-card" onclick="go('c2')">
+      <div class="cua-head">
+        <div class="num">2</div>
+        <h3>Paso a Paso por Áreas</h3>
+        <span class="start-badge" id="sb-c2">▶ Sigues aquí</span>
+      </div>
+      <p>La rutina exacta en baños, cocina, áreas comunes y lavandería, tal como Blanca la enseña en campo.</p>
+      <div class="pbar-wrap"><div class="pbar" id="mini-p-c2"></div></div>
+      <div class="badge-done" id="mini-b-c2"></div>
+    </div>
+    <div class="cua-card" onclick="go('c3')">
+      <div class="cua-head">
+        <div class="num">3</div>
+        <h3>Servicios MIC</h3>
+        <span class="start-badge" id="sb-c3">▶ Sigues aquí</span>
+      </div>
+      <p>Cómo cambia el trabajo según el servicio: Regular, Deep Clean y Airbnb. Office Cleaning muy pronto.</p>
+      <div class="pbar-wrap"><div class="pbar" id="mini-p-c3"></div></div>
+      <div class="badge-done" id="mini-b-c3"></div>
+    </div>
+  </div>
+
+  <!-- 5 · Apoyo -->
+  <div class="sec-title">Nunca estás sola</div>
+  <div class="card">
+    <div class="apoyo-grid">
+      <div class="apoyo"><b>🙋 Pregunta siempre</b>Ninguna pregunta es tonta. Es mejor preguntar dos veces que limpiar mal una vez.</div>
+      <div class="apoyo"><b>📱 WhatsApp del equipo</b>Si estás en una casa y tienes duda, escribe al grupo del equipo. Alguien siempre responde.</div>
+      <div class="apoyo"><b>🔁 Repasa sin límite</b>Este cuaderno es tuyo. Puedes volver a leerlo y repetir los tests las veces que necesites.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CUADERNOS (se generan con JS) ============ -->
+<section id="v-c1" class="view"></section>
+<section id="v-c2" class="view"></section>
+<section id="v-c3" class="view"></section>
+
+</main>
+<div class="foot">ENT-MIC-002 · Cuadernos de Estudio · Maid In The City Inc. · Hendersonville, NC<br>Documento interno de entrenamiento · Sistema Líderes Imparables</div>
+<script>
+/* ============ CONTENIDO ENT-MIC-002 ============ */
+const EMAIL_OFICINA = "procesoslumadigital@gmail.com";
+const DATA = {
+
+/* ---------- CUADERNO 1 · ACTIVIDADES MADRE ---------- */
+c1:{
+ titulo:"Cuaderno 1 · Actividades Madre",
+ intro:"Estas 5 técnicas son la base de TODO el trabajo en MIC. Si dominas esto, dominas cualquier casa. Recuerda el Sello: de arriba hacia abajo y de izquierda a derecha, siempre.",
+ modulos:[
+  {ic:"🪶",t:"Sacudida (Dusting)",s:"Todo empieza quitando el polvo — nunca al revés",pasos:[
+   {t:"Empieza por lo más alto de cada habitación",d:"Ventiladores de techo, esquinas altas, marcos de puertas y ventanas, lámparas. El polvo cae hacia abajo: si sacudes abajo primero, tendrás que hacerlo dos veces.",w:"El Sello MIC existe por esto: arriba→abajo evita repetir trabajo."},
+   {t:"Avanza de izquierda a derecha, sin saltar",d:"Recorre la habitación en un solo sentido, superficie por superficie: repisas, muebles, cuadros, decoraciones. No brinques de un lado a otro.",w:"Ir en orden garantiza que ningún rincón se olvide, aunque estés cansada o apurada."},
+   {t:"Usa el sacudidor y trapos correctos",d:"Sacudidor para alturas y detalles; trapo de microfibra para superficies planas. Nunca rocíes producto directo sobre muebles de madera o electrónicos: aplica al trapo primero.",tip:"Dobla el trapo en cuatro: tienes 8 caras limpias antes de cambiarlo."},
+   {t:"Detalle en lo que casi nadie ve",d:"Zoclos (baseboards), barandales, apagadores, manijas de puertas y patas de muebles. Ahí es donde el cliente nota la diferencia entre una limpieza normal y una limpieza MIC.",w:"Los detalles pequeños son los que hacen que el cliente vuelva a llamar."},
+   {t:"Objetos personales: se limpian, no se mueven de lugar",d:"Levanta, limpia debajo y regresa cada cosa exactamente donde estaba. No se abren cajones ni se mueven cosas personales del cliente.",w:"Regla general MIC: no se mueven cosas personales y no se hace trabajo extra sin permiso."}
+  ]},
+  {ic:"🌀",t:"Aspirado",s:"La técnica del enchufe lejano — rutina exacta de MIC",pasos:[
+   {t:"Conecta en el enchufe MÁS LEJANO que alcances",d:"Desde ese punto empiezas y en ese punto terminas. Así el cable nunca te estorba y no pasas dos veces por el mismo lugar.",w:"Haciendo 5 o 6 casas al día, cada minuto ahorrado cuenta."},
+   {t:"Primero el detalle: tubo y cepillo",d:"Orillas, esquinas, bordes y rincones de todo el espacio, hasta regresar al punto donde empezaste. El detalle va ANTES que el piso abierto.",tip:"Las esquinas acumulan lo que las líneas no recogen. Detalle primero = piso perfecto después."},
+   {t:"Aspira en líneas, de atrás hacia adelante",d:"Movimiento ordenado, siempre en la misma dirección, avanzando hacia atrás y recogiendo todo hasta volver al inicio. Sin dejar espacios sin aspirar.",w:"Que TODAS sigamos la misma rutina asegura que nada se olvide y el trabajo sea parejo."},
+   {t:"Si hay madera y alfombra: alfombras primero",d:"Se aspiran todas las alfombras primero, y siempre se avanza recogiendo hacia la salida de la casa. El aspirado termina exactamente en la salida.",w:"Terminar en la salida evita pisar lo ya aspirado y deja el camino listo para trapear."},
+   {t:"Al terminar: la aspiradora sale INMEDIATAMENTE de la casa",d:"No se deja adentro. Se lleva al carro de una vez.",w:"No estorba a quien trapea, no se olvida, y quien carga el carro ya tiene todo listo. Parece pequeño, pero en 6 casas al día es una gran diferencia."}
+  ]},
+  {ic:"🧹",t:"Trapeado",s:"El cierre del trabajo — siempre al final, siempre hacia la salida",pasos:[
+   {t:"El trapeado va al final, después del aspirado",d:"Nunca se trapea un piso sin aspirar o barrer primero: el agua con polvo hace lodo y mancha.",w:"Orden MIC: sacudir → aspirar → trapear. Cada paso prepara el siguiente."},
+   {t:"Cada quien con su trapeador",d:"El equipo lleva mínimo 4 trapeadores por cada 2 personas. No se comparte herramienta: esperar a una compañera es tiempo perdido.",w:"Responsabilidad individual: cada trabajadora lleva todo lo que su área necesita."},
+   {t:"Trapea de adentro hacia la salida",d:"Empieza en el rincón más lejano de la habitación y avanza hacia atrás, hacia la puerta. Nunca te encierres en una esquina ni pises lo mojado.",tip:"El trapeador también funciona como escoba en pisos duros: te ahorra caminar de más."},
+   {t:"Producto correcto y agua limpia",d:"Usa el líquido para pisos del carro. Si el agua se ve sucia, se cambia. Un trapeador sucio no limpia: reparte la mugre.",w:"El piso es lo último que el cliente ve antes de cerrar la puerta. Es tu firma."},
+   {t:"La que termina primero, trapea",d:"En equipo de 2, quien acaba su área antes empieza a trapear. El objetivo es que todas terminen al mismo tiempo.",w:"Nadie se queda parada. El equipo termina junto o no termina."}
+  ]},
+  {ic:"🧽",t:"Tallado",s:"La regla de oro: primero se remoja TODO, después se talla TODO",pasos:[
+   {t:"Remoja antes de tallar — siempre",d:"Aplica el producto y déjalo actuar mientras avanzas en otra cosa. El producto hace el trabajo pesado; tú solo lo terminas.",w:"La regla más importante de MIC: primero se remoja todo y después se limpia todo. Es más fácil, más rápido y queda mejor."},
+   {t:"Talla de arriba hacia abajo",d:"En regaderas y paredes usa el cepillo ajustable, que se adapta al tamaño del baño, siempre de arriba hacia abajo.",w:"Lo que escurre cae hacia abajo: si tallas de abajo hacia arriba, ensucias lo ya limpio."},
+   {t:"Rincones: estropajo manual",d:"Donde no entra el cepillo, entra el estropajo de mano. Detrás de la tina hay un espacio donde se usa la herramienta adaptable, metiéndola lo mejor que se pueda.",tip:"Si encuentras sarro en llaves o lavabos, usa el cepillo o estropajo especial para sarro."},
+   {t:"Desengrasante NUNCA directo",d:"En cocina, el desengrasante no se aplica directo a la superficie: se pone con esponja y agua con un poco de jabón.",w:"El producto directo puede dañar acabados — y un daño cuesta más que el tiempo que ahorra."},
+   {t:"Enjuaga, seca y revisa que brille",d:"Después de tallar: enjuagar, secar con toalla húmeda y luego una seca. Vidrios con toallas especiales. Al final, revisa que cada rincón quede brillante.",w:"El tallado no termina cuando tallas: termina cuando brilla."}
+  ]},
+  {ic:"🟫",t:"Alfombras",s:"Líneas perfectas, orillas impecables",pasos:[
+   {t:"Alfombras primero, pisos duros después",d:"Si la casa combina alfombra y madera, todas las alfombras se aspiran primero. Así el polvo que suelta la alfombra no cae en piso ya limpio.",w:"Es la misma lógica del Sello: lo que suelta suciedad se atiende primero."},
+   {t:"Detalle de orillas con el tubo y cepillo",d:"El borde donde la alfombra toca la pared acumula polvo que la aspiradora de piso no saca. Se recorre todo el perímetro con el accesorio.",tip:"Tapetes sueltos: se sacuden afuera y se colocan en un lugar seguro donde no se mojen ni se manchen con químicos."},
+   {t:"Aspira en líneas rectas, una sola dirección",d:"De atrás hacia adelante, línea junto a línea, avanzando hacia la salida. Las líneas uniformes en la alfombra son la marca visible de un trabajo profesional.",w:"El cliente VE las líneas. Son la firma de MIC en la alfombra."},
+   {t:"Revisa pelos y residuos",d:"En casas con mascotas, pasa dos veces donde sea necesario. Si algo no sale con la aspiradora, se recoge a mano o se reporta.",w:"Un pelo visible borra el efecto de toda una casa bien limpia."},
+   {t:"Manchas: se reportan, no se experimenta",d:"Si ves una mancha en la alfombra, no apliques químicos por tu cuenta. Se reporta a la oficina para decidir el tratamiento.",w:"Trabajo extra o riesgoso siempre requiere autorización de la compañía."}
+  ]}
+ ],
+ test:[
+  {q:"¿Cuál es la dirección del Sello de Calidad MIC?",o:["De abajo hacia arriba, para ver mejor el polvo","De arriba hacia abajo y de izquierda a derecha","En el orden que cada quien prefiera","De la puerta hacia adentro"],c:1,e:"Arriba→abajo e izquierda→derecha: nada se ensucia dos veces y ningún rincón se olvida."},
+  {q:"¿Dónde se conecta la aspiradora al empezar?",o:["En el enchufe más cercano a la puerta","En cualquier enchufe libre","En el enchufe más lejano que podamos alcanzar","En el pasillo, siempre"],c:2,e:"Desde el enchufe más lejano se empieza y ahí mismo se termina: el cable nunca estorba."},
+  {q:"La casa tiene piso de madera y alfombra. ¿Qué se aspira primero?",o:["La madera, porque es más delicada","Todas las alfombras","Lo que esté más sucio","La entrada de la casa"],c:1,e:"Alfombras primero, siempre avanzando hacia la salida de la casa."},
+  {q:"¿Cuál es la regla de oro del tallado?",o:["Tallar fuerte y rápido","Usar mucho producto directo","Primero se remoja todo y después se limpia todo","Empezar por el piso"],c:2,e:"El producto hace el trabajo pesado mientras tú avanzas en otra área. Más fácil, más rápido, mejor hecho."},
+  {q:"Terminaste de aspirar. ¿Qué haces con la aspiradora?",o:["La dejo en la sala para el siguiente cuarto","La saco inmediatamente de la casa","La guardo en un clóset del cliente","Se la paso a mi compañera"],c:1,e:"Sale inmediatamente: no estorba a quien trapea, no se olvida, y el carro se carga más rápido."}
+ ]
+},
+
+/* ---------- CUADERNO 2 · POR ÁREAS ---------- */
+c2:{
+ titulo:"Cuaderno 2 · Paso a Paso por Áreas",
+ intro:"Aquí está la rutina exacta de MIC en cada área de la propiedad, tal como Blanca la enseña en campo. Cada área tiene su orden — respétalo y el trabajo sale solo.",
+ modulos:[
+  {ic:"🛁",t:"Baños",s:"La rutina del remojo inteligente",pasos:[
+   {t:"Al entrar: tapetes fuera, piso aspirado",d:"Sacude todos los tapetes y aspira o barre el piso. El toilet se remoja DESDE QUE ENTRAS: desinfectante en tapa, base y piso alrededor.",w:"El toilet remojando desde el inicio llega listo para tallar cuando le toque su turno."},
+   {t:"Enjabona la regadera y déjala reposar",d:"Con el cepillo ajustable (se adapta al tamaño del baño), talla de arriba hacia abajo. En los rincones donde el cepillo no entra, usa el estropajo manual.",tip:"Detrás de la tina suele haber un espacio: ahí entra la herramienta adaptable, lo mejor que se pueda."},
+   {t:"Mientras reposa: lavabos",d:"Baja todo de la barra de los lavabos. Talla llaves y superficie, revisa si hay sarro (si lo hay: cepillo o estropajo especial). Enjuaga, seca con toalla húmeda y luego seca. Pasa toallita a los gabinetes por si hay manchas.",w:"Aprovechar el tiempo de reposo es lo que hace rápida a una cleaner MIC."},
+   {t:"Reacomoda con la mejor vista",d:"Lo que bajaste de la barra se organiza hacia atrás, dándole al cliente la mejor presentación posible.",w:"No solo limpiamos: dejamos el baño como de revista."},
+   {t:"Regresa a la regadera: talla y enjuaga",d:"Ya remojó. Con el estropajo en la tabla, talla mientras enjuagas. Las puertas de vidrio tienen un jabonado ligero pegado: se lava lo mejor posible con el cepillo.",tip:"Seca TODO al final, incluido el vidrio, con las toallas especiales. El vidrio seco y sin gotas es el detalle que más se nota."},
+   {t:"Toilet: tallar, revisar, rematar",d:"Talla de atrás hacia abajo. Revisa que no queden pelos ni residuos; si quedan, se quitan con papel.",w:"Nadie perdona un toilet mal terminado. Es el punto más crítico del baño."},
+   {t:"Inspección final de brillo",d:"Antes de salir, recorre el baño con la vista: cada rincón debe quedar brillante, siguiendo la rutina completa.",w:"Tu ojo es el último control de calidad antes del ojo del cliente."}
+  ]},
+  {ic:"🍳",t:"Cocina",s:"Primero se remoja todo, después se limpia todo",pasos:[
+   {t:"Tapetes fuera y lavadero preparado",d:"Saca los tapetes, sacúdelos y ponlos en lugar seguro donde no se mojen ni manchen. Tapa el lavadero, llénalo de agua y ponle jabón de trastes.",w:"Esa agua jabonosa será tu estación de remojo para toda la cocina."},
+   {t:"A remojar: patillas, plato del microondas y partes de la cafetera",d:"Si la estufa es de gas, las patillas van al agua. También el plato del microondas y las partes de la cafetera donde gotea café. La cafetera solo se limpia POR FUERA, a menos que el cliente lo pida con anticipación.",w:"Mientras estas piezas se remojan solas, tú avanzas en lo demás."},
+   {t:"Remoja estufa y microondas — desengrasante NUNCA directo",d:"Se aplica con esponja y agua con un poco de jabón. Todo se deja remojando.",w:"El desengrasante directo puede dañar los acabados de la estufa."},
+   {t:"Remoja toda la cocina, de izquierda a derecha",d:"Con la misma agua del lavadero, remoja todas las áreas SIN mover nada todavía, especialmente donde hay grasa o suciedad pegada.",w:"Este es el Sello MIC aplicado a la cocina: izquierda→derecha, sin saltar."},
+   {t:"Mientras actúa: refrigerador y superficies visibles",d:"Limpia por fuera el refrigerador y los electrodomésticos. El refri NO se toca por dentro: solo por fuera y las orillas de las puertas (incluida la del congelador). El horno igual: solo la puerta y orillas visibles.",w:"Regla general: horno y refrigerador por dentro solo con autorización de la compañía."},
+   {t:"Ahora sí: mueve todo y limpia debajo",d:"Cafetera, tostador y todo lo del counter se mueve, porque abajo se acumulan boronas y grasa. Limpia bien debajo, orillas y esquinas. También la parte baja de los gabinetes donde pegan al piso.",tip:"Objetos polvosos (aceites, saleros, especias): trapo húmedo y luego seco, y se regresan a su lugar. No se abren ni se mueve el contenido."},
+   {t:"Gabinetes: solo manchas visibles",d:"No se limpian completos. Solo manchas de café, comida o grasa.",w:"Enfocamos el tiempo donde el cliente lo nota."},
+   {t:"La regla de los 10 trastes",d:"¿Hay 10 trastes o menos? Se lavan. ¿Más de 10? Se reporta a la oficina. No se recoge comida ni se hace trabajo extra sin autorización.",w:"Proteger tu tiempo protege a todo el equipo y al horario del día."},
+   {t:"Piso y basura",d:"Normalmente el piso lo aspira la encargada de aspirar. Pero si la cocina ya está mojada y la basura se pega, la persona de cocina barre y trapea, sin dejar nada. La basura NUNCA se queda en el piso: se saca inmediatamente afuera, a un solo punto de acopio.",w:"Basura afuera de inmediato = nada de olores, nada de olvidos."},
+   {t:"El comedor también es tuyo",d:"La encargada de cocina limpia la mesa, las sillas y debajo de ellas: boronas, polvo y manchas. Al terminar tu área, sales al carro a cargar lo que usaste.",w:"No se permite quedarse adentro sin hacer nada: retrasa a todas."}
+  ]},
+  {ic:"🛋️",t:"Áreas Comunes",s:"Sala, recámaras, pasillos — el Sello completo en acción",pasos:[
+   {t:"Sacudida de arriba hacia abajo",d:"Ventiladores, marcos, lámparas, cuadros, muebles, repisas y electrónicos (con trapo apenas húmedo, nunca producto directo). Recorre cada habitación de izquierda a derecha.",w:"Las áreas comunes son donde el Sello MIC se aplica de principio a fin."},
+   {t:"Presentación: el toque MIC",d:"Cojines acomodados, cobijas dobladas, objetos alineados como para foto. Todo se regresa exactamente a su lugar, solo que mejor presentado.",tip:"Antes de salir de la habitación, mírala como si fueras el cliente entrando. ¿Se ve como de revista?"},
+   {t:"Vidrios y espejos sin rayas",d:"Líquido para vidrios y toalla especial. Revisa a contraluz que no queden marcas ni pelusas.",w:"Un espejo rayado se nota más que un mueble sin sacudir."},
+   {t:"Zoclos, apagadores y manijas",d:"El recorrido de detalle: zoclos (baseboards), apagadores, manijas y barandales. Es lo que separa una limpieza MIC de una limpieza cualquiera.",w:"El cliente pasa la mano donde tú no imaginas."},
+   {t:"Aspirado y trapeado con la rutina madre",d:"Aplica exactamente la técnica del Cuaderno 1: enchufe lejano, detalle primero, líneas hacia la salida, y trapeado final de adentro hacia afuera.",w:"Las actividades madre no cambian: cambian las habitaciones, no la técnica."}
+  ]},
+  {ic:"🧺",t:"Lavandería",s:"Pequeña pero visible — no la subestimes",pasos:[
+   {t:"Superficies primero: lavadora y secadora por fuera",d:"Se limpian por fuera con trapo húmedo y luego seco: tapa, panel de botones y frentes. No se limpia el interior de las máquinas sin autorización.",w:"Misma regla que refri y horno: por dentro, solo con permiso de la compañía."},
+   {t:"Pelusa y detrás de las máquinas (lo alcanzable)",d:"Quita la pelusa visible alrededor y en las orillas. Si hay espacio alcanzable entre o detrás de las máquinas, pasa la herramienta adaptable, lo mejor que se pueda.",tip:"La pelusa acumulada es lo primero que se ve al entrar. Dos minutos aquí cambian toda el área."},
+   {t:"Lavadero y superficies de doblado",d:"Talla el lavadero si tiene manchas o sarro (remoja primero, como siempre). Limpia counters o repisas donde se dobla ropa.",w:"Si hay ropa del cliente, no se toca ni se mueve: se limpia alrededor."},
+   {t:"Piso al final: aspirar o barrer, luego trapear",d:"El piso de lavandería junta pelusa y jabón en polvo. Se aspira o barre bien y se trapea al final, saliendo hacia la puerta.",w:"Cierre igual que todas las áreas: el piso es lo último y se hace hacia la salida."}
+  ]}
+ ],
+ test:[
+  {q:"¿Qué es lo PRIMERO al entrar al baño?",o:["Tallar la regadera","Sacudir los tapetes, aspirar o barrer el piso, y dejar el toilet remojando","Limpiar el espejo","Secar los vidrios"],c:1,e:"Tapetes fuera, piso aspirado y el toilet remojando desde que entras: así todo llega listo a su turno."},
+  {q:"¿Cómo se aplica el desengrasante en la cocina?",o:["Directo sobre la estufa para que actúe mejor","Con esponja y agua con un poco de jabón","Solo en el horno por dentro","Mezclado con líquido de vidrios"],c:1,e:"Nunca directo: con esponja y agua jabonosa. El producto directo daña acabados."},
+  {q:"Hay 14 trastes sucios en el lavadero. ¿Qué haces?",o:["Los lavo todos rápido","Lavo 10 y dejo 4","Se reporta a la oficina, porque son más de 10","Los acomodo en el lavaplatos"],c:2,e:"10 o menos se lavan; más de 10 se reporta. No se hace trabajo extra sin autorización."},
+  {q:"¿Qué partes del refrigerador se limpian?",o:["Por dentro y por fuera, completo","Solo por fuera y las orillas de las puertas","Solo el congelador","Nada, el refri no se toca"],c:1,e:"Por fuera y orillas de puertas (incluido congelador). Por dentro, solo con autorización."},
+  {q:"¿Qué se hace con la basura de la cocina?",o:["Se deja junto a la puerta para el final","Se saca inmediatamente afuera, a un solo punto","Se queda en el bote hasta que el cliente la saque","Se reparte en los botes de la casa"],c:1,e:"Nunca se deja en el piso: sale de inmediato por la misma entrada, a un solo lugar de acopio."}
+ ]
+},
+
+/* ---------- CUADERNO 3 · SERVICIOS ---------- */
+c3:{
+ titulo:"Cuaderno 3 · Servicios MIC",
+ intro:"Las técnicas (Cuaderno 1) y las áreas (Cuaderno 2) no cambian. Lo que cambia en cada servicio es la PROFUNDIDAD, el TIEMPO y las REGLAS especiales. Aquí aprendes a distinguirlos.",
+ modulos:[
+  {ic:"🏠",t:"Regular Cleaning",s:"El mantenimiento que sostiene a la empresa · SOP-MIC-001",pasos:[
+   {t:"Qué es",d:"Limpieza recurrente de mantenimiento (semanal, quincenal o mensual) en casas que ya conocemos. El objetivo: que la casa SIEMPRE se sienta recién limpiada, en el tiempo estimado.",w:"Los clientes recurrentes son el corazón del negocio: la constancia es lo que pagan."},
+   {t:"Organización del equipo de 2",d:"Persona 1: baños + cocina. Persona 2: sacudir + aspirar. Ambas al mismo ritmo. La que termina primero, trapea.",w:"Cada quien hace su trabajo completo, bien hecho y con sus propias herramientas."},
+   {t:"Organización del equipo de 3 (la más eficiente)",d:"Persona 1: cocina + sacudir. Persona 2: aspirar. Persona 3: baños. Cada una enfocada en su área: mejor calidad y más rapidez.",tip:"Antes de salir del shop: carro cargado, botellas llenas, herramientas listas. Cada quien revisa SU material."},
+   {t:"Entrada y salida profesional",d:"No se entra en desorden a la casa: entrada organizada, con uniforme (se dan dos, es requisito). Al terminar tu área, sales a cargar el carro, sacar basura de cubetas y preparar la siguiente casa.",w:"La presentación del equipo es parte del servicio que el cliente compra."},
+   {t:"Alcance regular: lo visible y lo de siempre",d:"En regular NO se hace: interior de horno/refri, gabinetes completos, ni trabajos extra. Todo lo que salga de la rutina se reporta y se cotiza aparte.",w:"Respetar el alcance protege el horario de las 5-6 casas del día."}
+  ]},
+  {ic:"✨",t:"Deep Clean",s:"La primera impresión y el rescate profundo · SOP-MIC-002",pasos:[
+   {t:"Qué es y cuándo se hace",d:"Limpieza profunda y detallada: primera vez con un cliente, casas muy sucias, o cada cierto tiempo como refuerzo. Toma bastante más tiempo que un regular — y así debe ser.",w:"El deep clean es la audición: si sale perfecto, el cliente se vuelve recurrente."},
+   {t:"Todo lo del regular + capa de detalle profundo",d:"Zoclos tallados a mano, marcos de puertas y ventanas completos, interior de ventanas alcanzables, puertas completas, detrás y debajo de muebles que se puedan mover con seguridad.",w:"En deep clean el detalle no es extra: ES el servicio."},
+   {t:"Guerra al sarro y a la grasa acumulada",d:"Baños: sarro de llaves, lavabos, regaderas y vidrios con los cepillos y estropajos especiales — remojo largo y doble pasada si hace falta. Cocina: grasa vieja con remojo profundo (nunca desengrasante directo).",tip:"En deep clean el remojo se hace MÁS temprano y se deja actuar MÁS tiempo. La regla de oro trabaja doble."},
+   {t:"Lo que sigue igual que siempre",d:"Interior de horno, refri y cajones personales SOLO con autorización previa acordada en la cotización. Si el cliente lo pide en el momento: se reporta a la oficina, no se decide en la casa.",w:"Aunque sea deep clean, el trabajo extra sin permiso sigue prohibido."},
+   {t:"Inspección final doble",d:"Antes de salir, recorrido completo revisando rincones, a la altura de los ojos y agachándose. Lo que el regular perdona, el deep clean no.",w:"Este servicio se cobra más caro: la revisión debe estar a la altura del precio."}
+  ]},
+  {ic:"🔑",t:"Airbnb Cleaning",s:"Turnover contra reloj · SOP-AIR-001",pasos:[
+   {t:"Qué es: huésped sale, huésped entra",d:"Limpieza completa entre huéspedes con HORA LÍMITE de check-in. Aquí el tiempo no es estimado: es una promesa. La rutina madre se ejecuta rápida y sin saltarse pasos.",w:"Un Airbnb no listo a tiempo es una reseña mala para el dueño — y un cliente perdido para MIC."},
+   {t:"Primero: recorrido de reporte",d:"Antes de limpiar, recorre la propiedad buscando daños, objetos olvidados del huésped y faltantes. TODO se reporta con foto a la oficina ANTES de continuar.",w:"La foto te protege: queda claro que el daño estaba ahí antes de que tú tocaras nada."},
+   {t:"Blancos y camas",d:"Se retira toda la ropa de cama y toallas usadas. Se tienden las camas con blancos limpios, estilo hotel: sábanas estiradas, sin arrugas, almohadas presentadas.",tip:"La cama es la foto del anuncio. Es lo primero que el huésped compara contra lo que vio en internet."},
+   {t:"Staging y amenities",d:"Se reponen los consumibles según la lista de la propiedad (papel, jabones, café, etc.) y se acomoda todo idéntico a la presentación acordada: cada propiedad tiene su estándar.",w:"En Airbnb no decides tú la presentación: la define la lista de la propiedad."},
+   {t:"Protocolo de checkout urgente",d:"Si el huésped salió tarde o hay check-in inmediato, la oficina activa el protocolo urgente: prioridades claras (camas, baños, cocina, pisos) y comunicación constante por WhatsApp hasta terminar.",w:"En urgencia, el orden de prioridades lo marca la oficina, no la costumbre."}
+  ]},
+  {ic:"🏢",t:"Office Cleaning",s:"Próximamente",soon:true,pasos:[
+   {t:"Este módulo está en construcción",d:"El procedimiento oficial de limpieza de oficinas se está documentando con Blanca. Cuando esté sellado, aparecerá aquí con sus pasos, test y constancia.",w:"En MIC no se entrena con improvisaciones: se entrena con el sistema probado."}
+  ]}
+ ],
+ test:[
+  {q:"¿Qué distingue a un Deep Clean de un Regular Cleaning?",o:["Se usan otros productos totalmente distintos","La capa de detalle profundo: zoclos, marcos, sarro, grasa acumulada y más tiempo","Que lo hace una sola persona","Que se limpia el interior del refri sin permiso"],c:1,e:"Las técnicas son las mismas; cambia la profundidad, el detalle y el tiempo."},
+  {q:"En un equipo de 2 personas, ¿quién trapea?",o:["Siempre la persona de baños","Siempre la más nueva","La que termine primero su área","Nadie: el trapeado es del siguiente equipo"],c:2,e:"La que termina primero trapea. El objetivo es que todas terminen al mismo tiempo."},
+  {q:"Llegas a un Airbnb y encuentras una lámpara rota. ¿Qué haces?",o:["La escondo para no tener problemas","La reparo si puedo","Se reporta con foto a la oficina ANTES de continuar","Le aviso al huésped que sigue"],c:2,e:"Foto y reporte antes de continuar: te protege a ti y protege a MIC."},
+  {q:"El cliente te pide en persona que limpies el horno por dentro. ¿Qué haces?",o:["Lo limpio, el cliente manda","Le digo que no y sigo trabajando","Se reporta a la oficina: trabajo extra solo con autorización de la compañía","Lo limpio solo si es deep clean"],c:2,e:"Ningún trabajo extra se decide en la casa: se reporta y la oficina autoriza y cotiza."},
+  {q:"Terminaste tu área antes que tus compañeras. ¿Qué haces?",o:["Espero adentro a que terminen","Reviso mi teléfono afuera","Trapeo si hace falta, y luego salgo a cargar el carro y preparar la siguiente casa","Ayudo moviéndome por toda la casa"],c:2,e:"Primero apoyar trapeando; después: carro, basura de cubetas y preparación de la siguiente casa."}
+ ]
+}
+};
+</script>
+<script>
+/* ============ ESTADO ============ */
+const KEY="mic-ent-002";
+let S = JSON.parse(localStorage.getItem(KEY)||"{}");
+["c1","c2","c3"].forEach(k=>{ S[k]=S[k]||{pasos:{},testPass:false,score:null,firma:null}; });
+const save=()=>localStorage.setItem(KEY,JSON.stringify(S));
+
+/* ============ NAVEGACIÓN ============ */
+function go(v){
+  document.querySelectorAll(".view").forEach(x=>x.classList.remove("act"));
+  document.getElementById("v-"+v).classList.add("act");
+  document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("act",b.dataset.v===v));
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>go(b.dataset.v));
+
+/* ============ RENDER DE CUADERNOS ============ */
+function totalPasos(k){ return DATA[k].modulos.reduce((a,m)=>a+m.pasos.length,0); }
+function pasosOk(k){ return Object.values(S[k].pasos).filter(Boolean).length; }
+function progreso(k){
+  const total=totalPasos(k)+2; // pasos + test + firma
+  let done=pasosOk(k);
+  if(S[k].testPass) done++;
+  if(S[k].firma) done++;
+  return Math.round(done/total*100);
+}
+
+function renderCuaderno(k){
+  const D=DATA[k], root=document.getElementById("v-"+k);
+  let h=`
+  <div class="hero" style="padding:28px 30px">
+    <span class="code">${D.titulo.toUpperCase()}</span>
+    <h2 style="font-size:clamp(20px,3.5vw,28px)">${D.titulo.split("·")[1]||D.titulo}</h2>
+    <p>${D.intro}</p>
+  </div>
+  <div class="sticky-prog">
+    <div class="pbar-wrap"><div class="pbar" id="pb-${k}"></div></div>
+    <div class="pbar-lbl" id="pl-${k}"></div>
+  </div>`;
+  D.modulos.forEach((m,mi)=>{
+    h+=`<div class="mod ${m.soon?"soon":""}">
+      <div class="mod-head"><span class="ic">${m.ic}</span>
+        <div><h3>${m.t} ${m.soon?'<span class="tagsoon">Próximamente</span>':''}</h3><small>${m.s}</small></div>
+      </div><div class="mod-body">`;
+    m.pasos.forEach((p,pi)=>{
+      const id=mi+"-"+pi, ok=S[k].pasos[id];
+      h+=`<div class="paso ${ok?"ok":""}" id="paso-${k}-${id}">
+        <div class="pnum">${pi+1}</div>
+        <div class="paso-c"><h4>${p.t}</h4><p>${p.d}</p>
+          ${p.w?`<div class="why">¿Por qué? ${p.w}</div>`:""}
+          ${p.tip?`<details class="tip"><summary>Tip de campo</summary><div class="tip-body">${p.tip}</div></details>`:""}
+        </div>
+        ${m.soon?"":`<div class="chk"><button onclick="togglePaso('${k}','${id}')" title="Marcar como entendido">✓</button><div class="chk-lbl">Ya lo entendí</div></div>`}
+      </div>`;
+    });
+    h+=`</div></div>`;
+  });
+  /* ---- TEST ---- */
+  h+=`<div class="test" id="test-${k}">
+    <h3>📝 Test del ${D.titulo.split("·")[0].trim()}</h3>
+    <p>5 preguntas · necesitas 4 correctas · puedes intentarlo las veces que quieras.</p>
+    <div class="lock-note" id="lock-${k}">Tip: marca todos los pasos como "Ya lo entendí" antes del test. Así llegas segura.</div>`;
+  D.test.forEach((q,qi)=>{
+    h+=`<div class="q" data-q="${qi}"><h4>${qi+1}. ${q.q}</h4>`;
+    q.o.forEach((o,oi)=>{ h+=`<button class="opt" onclick="pick('${k}',${qi},${oi},this)">${o}</button>`; });
+    h+=`<div class="expl" id="ex-${k}-${qi}"></div></div>`;
+  });
+  h+=`<button class="btn" id="grade-${k}" onclick="grade('${k}')">Calificar mi test</button>
+    <div class="result" id="res-${k}"></div>
+  </div>
+  /* firma */
+  <div class="firma" id="firma-${k}">
+    <h3>✍️ Firma de constancia</h3>
+    <p>Aprobaste el test. Firma con tus datos para dejar constancia de que estudiaste y entendiste este cuaderno.</p>
+    <label>Nombre completo</label>
+    <input type="text" id="nom-${k}" placeholder="Tu nombre y apellido">
+    <label>Teléfono (opcional)</label>
+    <input type="text" id="tel-${k}" placeholder="(___) ___-____">
+    <div class="decl">
+      <input type="checkbox" id="dec-${k}">
+      <span>Confirmo que estudié este cuaderno completo, entiendo cada paso y sé que puedo preguntarle a Blanca cualquier duda durante mi entrenamiento en campo.</span>
+    </div>
+    <button class="btn" onclick="firmar('${k}')">Firmar y enviar mi constancia 📧</button>
+    <div class="cert" id="cert-${k}"></div>
+  </div>`;
+  root.innerHTML=h.replace("/* firma */","");
+  updateProg(k);
+  restoreFirma(k);
+}
+
+/* ============ INTERACCIONES ============ */
+function togglePaso(k,id){
+  S[k].pasos[id]=!S[k].pasos[id]; save();
+  document.getElementById(`paso-${k}-${id}`).classList.toggle("ok",S[k].pasos[id]);
+  updateProg(k);
+}
+function updateProg(k){
+  const p=progreso(k);
+  const bar=document.getElementById("pb-"+k), lbl=document.getElementById("pl-"+k);
+  if(bar){bar.style.width=p+"%";}
+  if(lbl){
+    let msg=p+"% completado";
+    if(p===100) msg="🎉 100% · Cuaderno completado y firmado";
+    else if(S[k].testPass) msg=p+"% · Test aprobado ✓ · falta tu firma";
+    else if(pasosOk(k)===totalPasos(k)) msg=p+"% · ¡Todos los pasos listos! Ve al test";
+    lbl.textContent=msg;
+  }
+  const mp=document.getElementById("mini-p-"+k), mb=document.getElementById("mini-b-"+k);
+  if(mp) mp.style.width=p+"%";
+  if(mb) mb.textContent = p===100 ? "✓ Completado y firmado" : (p>0 ? p+"% avanzado" : "Sin empezar");
+  const lock=document.getElementById("lock-"+k);
+  if(lock) lock.classList.toggle("show", pasosOk(k)<totalPasos(k) && !S[k].testPass);
+  updateInicio();
+}
+/* ---- Portada: siguiente paso sugerido ---- */
+function nextCuaderno(){ return ["c1","c2","c3"].find(k=>progreso(k)<100)||null; }
+function startNext(){ go(nextCuaderno()||"c1"); }
+function updateInicio(){
+  const n=nextCuaderno();
+  ["c1","c2","c3"].forEach(k=>{
+    const sb=document.getElementById("sb-"+k);
+    if(sb) sb.classList.toggle("show",k===n);
+  });
+  const cta=document.getElementById("cta-start");
+  if(!cta) return;
+  if(!n){ cta.textContent="🎉 Entrenamiento completado · Entra a repasar cuando quieras"; return; }
+  const nombres={c1:"Cuaderno 1 · Actividades Madre",c2:"Cuaderno 2 · Por Áreas",c3:"Cuaderno 3 · Servicios"};
+  cta.textContent=(progreso(n)>0?"▶ Continuar con el ":"▶ Comenzar con el ")+nombres[n];
+}
+const picks={};
+function pick(k,qi,oi,btn){
+  picks[k]=picks[k]||{}; picks[k][qi]=oi;
+  btn.parentElement.querySelectorAll(".opt").forEach(b=>b.classList.remove("sel"));
+  btn.classList.add("sel");
+}
+function grade(k){
+  const D=DATA[k], P=picks[k]||{};
+  if(Object.keys(P).length<D.test.length){
+    const r=document.getElementById("res-"+k);
+    r.className="result fail show"; r.textContent="Te faltan preguntas por contestar. Revisa y vuelve a calificar."; return;
+  }
+  let ok=0;
+  D.test.forEach((q,qi)=>{
+    const qEl=document.querySelector(`#test-${k} .q[data-q="${qi}"]`);
+    const opts=qEl.querySelectorAll(".opt");
+    opts.forEach((b,oi)=>{
+      b.classList.remove("good","bad");
+      if(oi===q.c) b.classList.add("good");
+      else if(P[qi]===oi) b.classList.add("bad");
+    });
+    const ex=document.getElementById(`ex-${k}-${qi}`);
+    const acerto=P[qi]===q.c; if(acerto) ok++;
+    ex.className="expl show "+(acerto?"g":"b");
+    ex.textContent=(acerto?"✓ Correcto. ":"✗ La respuesta correcta está marcada en verde. ")+q.e;
+  });
+  const r=document.getElementById("res-"+k);
+  S[k].score=ok+"/"+D.test.length;
+  if(ok>=4){
+    S[k].testPass=true; save();
+    r.className="result pass show";
+    r.textContent=`🎉 ¡Aprobaste con ${ok} de ${D.test.length}! Baja a firmar tu constancia.`;
+    document.getElementById("firma-"+k).classList.add("show");
+    document.getElementById("firma-"+k).scrollIntoView({behavior:"smooth",block:"center"});
+  }else{
+    S[k].testPass=false; save();
+    r.className="result fail show";
+    r.textContent=`Obtuviste ${ok} de ${D.test.length}. Repasa los pasos marcados en rojo y vuelve a intentarlo, con calma. Tú puedes.`;
+  }
+  updateProg(k);
+}
+function firmar(k){
+  const nom=document.getElementById("nom-"+k).value.trim();
+  const tel=document.getElementById("tel-"+k).value.trim();
+  const dec=document.getElementById("dec-"+k).checked;
+  if(!nom){alert("Escribe tu nombre completo para firmar.");return;}
+  if(!dec){alert("Marca la casilla de confirmación para poder firmar.");return;}
+  const fecha=new Date().toLocaleDateString("es-US",{day:"numeric",month:"long",year:"numeric"});
+  S[k].firma={nom,tel,fecha}; save();
+  mostrarCert(k); updateProg(k);
+  const D=DATA[k];
+  const sub=encodeURIComponent(`Constancia de Entrenamiento MIC · ${D.titulo} · ${nom}`);
+  const body=encodeURIComponent(
+`CONSTANCIA DE ENTRENAMIENTO · ENT-MIC-002
+Maid In The City Inc.
+
+Cuaderno: ${D.titulo}
+Nombre: ${nom}
+Teléfono: ${tel||"—"}
+Fecha: ${fecha}
+Resultado del test: ${S[k].score} (APROBADO)
+
+Declaración: Confirmo que estudié este cuaderno completo, entiendo cada paso y sé que puedo apoyarme en mi entrenadora Blanca Salgado durante mi proceso de aprendizaje en campo.
+
+Firmado digitalmente desde el Cuaderno de Estudio MIC.`);
+  window.location.href=`mailto:${EMAIL_OFICINA}?subject=${sub}&body=${body}`;
+}
+function mostrarCert(k){
+  const f=S[k].firma; if(!f) return;
+  const c=document.getElementById("cert-"+k);
+  c.innerHTML=`<p style="font-size:11px;letter-spacing:2px;font-weight:900;color:var(--rosa-palida)">CONSTANCIA · ${DATA[k].titulo.toUpperCase()}</p>
+   <div class="sig">${f.nom}</div>
+   <p style="font-size:12.5px;font-weight:700">Firmado el ${f.fecha} · Test: ${S[k].score} · Entrenadora: Blanca Salgado</p>
+   <p style="font-size:12px;color:#cbb8b2;font-weight:600">Si el correo no se abrió automáticamente, toma captura de esta constancia y envíala por WhatsApp a la oficina.</p>`;
+  c.classList.add("show");
+}
+function restoreFirma(k){
+  if(S[k].testPass){ document.getElementById("firma-"+k).classList.add("show"); }
+  if(S[k].firma){ mostrarCert(k); }
+}
+
+/* ============ ARRANQUE ============ */
+["c1","c2","c3"].forEach(renderCuaderno);
+["c1","c2","c3"].forEach(updateProg);
+</script>
+</body>
+</html>
