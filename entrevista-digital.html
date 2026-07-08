@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Entrevista Digital · GUI-HR-MIC-001 v2.1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1a1a1a;
+    --paper:#ffffff;
+    --terracotta:#c98478;
+    --terracotta-deep:#a8695f;
+    --blush:#f6cac3;
+    --blush-pale:#fcefec;
+    --muted:#a29a96;
+    --muted-bg:#f0ede9;
+    --rust:#a8493d;
+    --rust-bg:#f6e4e1;
+    --line:#e7ddd9;
+    --radius:18px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Poppins',sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    padding-bottom:100px;
+  }
+  .wrap{max-width:720px;margin:0 auto;padding:32px 18px 40px;}
+
+  header.top{text-align:center;margin-bottom:26px;}
+  .eyebrow{
+    display:inline-block;font-size:12px;font-weight:700;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--terracotta-deep);background:var(--blush-pale);
+    padding:6px 14px;border-radius:999px;margin-bottom:14px;
+  }
+  h1.script{font-family:'Caveat',cursive;font-weight:700;font-size:46px;line-height:1;margin:0 0 6px;}
+  h1.script em{color:var(--terracotta);font-style:normal;}
+  .subtitle{font-weight:500;font-size:14.5px;color:#5a5350;max-width:460px;margin:0 auto;}
+
+  /* GOLDEN RULE BANNER */
+  .golden{
+    background:var(--ink);color:#fff;border-radius:var(--radius);
+    padding:18px 20px;margin-bottom:22px;
+  }
+  .golden h2{
+    font-size:12.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--blush);
+    margin:0 0 8px;font-weight:700;
+  }
+  .golden p{margin:0 0 8px;font-size:13.5px;color:#f2eeec;}
+  .golden .script-line{
+    font-size:13.5px;background:rgba(255,255,255,.08);border-radius:10px;
+    padding:9px 12px;font-style:italic;color:#fff;
+  }
+  .golden .topics{font-size:12.5px;color:var(--blush);font-weight:600;}
+
+  /* CANDIDATE INFO */
+  .infogrid{
+    display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:26px;
+  }
+  .infogrid .full{grid-column:1 / -1;}
+  label{font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:4px;}
+  input[type=text], input[type=date], select, textarea{
+    width:100%;font-family:'Poppins',sans-serif;font-size:14px;
+    padding:9px 11px;border:1.5px solid var(--line);border-radius:10px;
+    background:#fff;color:var(--ink);
+  }
+  input:focus, select:focus, textarea:focus{outline:2px solid var(--terracotta);outline-offset:1px;}
+
+  /* STICKY SCORE BAR */
+  .scorebar{
+    position:sticky;top:0;z-index:20;background:#fff;
+    border-bottom:1px solid var(--line);padding:12px 0;margin-bottom:22px;
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+  }
+  .scorebar .score-num{font-size:26px;font-weight:800;line-height:1;}
+  .scorebar .score-num span{font-size:14px;font-weight:600;color:var(--muted);}
+  .scorebar .badge-live{
+    font-size:11.5px;font-weight:700;padding:6px 12px;border-radius:999px;
+    text-transform:uppercase;letter-spacing:.04em;white-space:nowrap;
+  }
+  .badge-live.avanza{background:var(--terracotta);color:#fff;}
+  .badge-live.reserva{background:var(--muted);color:#fff;}
+  .badge-live.noavanza{background:var(--rust);color:#fff;}
+  .badge-live.progreso{background:var(--muted-bg);color:var(--muted);}
+
+  /* QUESTION CARDS */
+  .qcard{
+    background:var(--blush-pale);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 18px 20px;margin-bottom:16px;
+  }
+  .qcard-top{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+  .qnum{
+    width:30px;height:30px;border-radius:50%;background:var(--ink);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;flex-shrink:0;
+  }
+  .qbloque{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--terracotta-deep);}
+  .qpregunta{font-size:16px;font-weight:600;margin:2px 0 12px;color:var(--ink);}
+
+  .refcols{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
+  .refbox2{border-radius:10px;padding:10px 11px;font-size:12.5px;}
+  .refbox2.si{background:#fff;border-left:3px solid var(--terracotta);color:#4a4340;}
+  .refbox2.no{background:#fff;border-left:3px solid var(--rust);color:#4a4340;}
+  .refbox2 b{display:block;font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px;}
+  .refbox2.si b{color:var(--terracotta-deep);}
+  .refbox2.no b{color:var(--rust);}
+
+  .scorebtns{display:flex;gap:8px;margin-bottom:10px;}
+  .scorebtn{
+    flex:1;font-family:'Poppins',sans-serif;font-weight:700;font-size:14px;
+    padding:11px 0;border-radius:10px;border:1.5px solid var(--line);background:#fff;
+    cursor:pointer;color:var(--ink);transition:all .12s ease;
+  }
+  .scorebtn small{display:block;font-size:9.5px;font-weight:600;color:var(--muted);text-transform:none;letter-spacing:0;margin-top:1px;}
+  .scorebtn.sel-3{background:var(--terracotta);color:#fff;border-color:var(--terracotta);}
+  .scorebtn.sel-3 small{color:#fce8e4;}
+  .scorebtn.sel-2{background:var(--muted);color:#fff;border-color:var(--muted);}
+  .scorebtn.sel-2 small{color:#f0ede9;}
+  .scorebtn.sel-1{background:var(--rust);color:#fff;border-color:var(--rust);}
+  .scorebtn.sel-1 small{color:#f6e4e1;}
+
+  .evidencia{margin-top:4px;}
+  .evidencia input{font-style:italic;}
+
+  @media (max-width:480px){
+    .refcols{grid-template-columns:1fr;}
+    h1.script{font-size:38px;}
+  }
+
+  /* ALERTS SECTION */
+  .section-title{
+    font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;
+    color:var(--muted);margin:30px 0 12px;
+  }
+  .alertlist{
+    background:var(--rust-bg);border-radius:var(--radius);padding:16px 18px;
+  }
+  .alertitem{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;font-size:13.5px;color:#4a4340;}
+  .alertitem:last-child{margin-bottom:0;}
+  .alertitem input{width:18px;height:18px;margin-top:2px;flex-shrink:0;accent-color:var(--rust);}
+
+  /* RESULT PANEL */
+  .resultpanel{
+    background:var(--ink);color:#fff;border-radius:var(--radius);
+    padding:22px 22px 24px;margin-top:30px;
+  }
+  .resultpanel h2{font-size:12.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--blush);margin:0 0 14px;font-weight:700;}
+  .result-main{display:flex;align-items:center;gap:14px;margin-bottom:14px;}
+  .result-pill{font-size:15px;font-weight:800;padding:9px 18px;border-radius:999px;white-space:nowrap;}
+  .result-pill.avanza{background:var(--terracotta);}
+  .result-pill.reserva{background:var(--muted);}
+  .result-pill.noavanza{background:var(--rust);}
+  .result-pill.progreso{background:rgba(255,255,255,.15);}
+  .result-note{font-size:12.5px;color:#f2eeec;}
+  .result-warning{
+    background:rgba(168,73,61,.35);border:1px solid var(--rust);border-radius:10px;
+    padding:10px 12px;font-size:12.5px;color:#fff;margin-bottom:14px;
+  }
+
+  .motivo-row{margin-bottom:16px;}
+  .motivo-row label{color:var(--blush);}
+
+  /* CONTRAST */
+  .contraste{border-top:1px solid rgba(255,255,255,.15);padding-top:16px;margin-top:6px;}
+  .contraste p.ask{font-size:13.5px;color:#f2eeec;margin:0 0 10px;}
+  .opinionbtns{display:flex;gap:8px;margin-bottom:12px;}
+  .opbtn{
+    flex:1;font-family:'Poppins',sans-serif;font-weight:700;font-size:12.5px;
+    padding:10px 0;border-radius:10px;border:1.5px solid rgba(255,255,255,.25);
+    background:transparent;color:#fff;cursor:pointer;
+  }
+  .opbtn.active{background:var(--blush);color:var(--ink);border-color:var(--blush);}
+  .contrast-msg{
+    font-size:13px;border-radius:10px;padding:11px 13px;
+  }
+  .contrast-msg.match{background:rgba(201,132,120,.25);color:#fff;}
+  .contrast-msg.mismatch{background:rgba(255,255,255,.1);color:#fff;}
+
+  .actionrow{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px;}
+  .btn{
+    display:inline-flex;align-items:center;gap:7px;font-family:'Poppins',sans-serif;
+    font-weight:600;font-size:13.5px;padding:11px 18px;border-radius:11px;border:none;
+    cursor:pointer;text-decoration:none;
+  }
+  .btn-copy{background:var(--blush);color:var(--ink);}
+  .btn-copy.copied{background:var(--terracotta);color:#fff;}
+  .btn-reset{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.35);}
+
+  .timerbox{
+    display:flex;align-items:center;gap:10px;background:var(--muted-bg);
+    border-radius:12px;padding:10px 14px;margin:20px 0;font-size:13px;color:#4a4340;
+  }
+  .timerbox b{font-variant-numeric:tabular-nums;font-size:16px;color:var(--ink);}
+  .timerbox button{
+    margin-left:auto;font-family:'Poppins',sans-serif;font-weight:600;font-size:12.5px;
+    padding:7px 12px;border-radius:8px;border:1.5px solid var(--ink);background:#fff;cursor:pointer;
+  }
+
+  footer{margin-top:40px;text-align:center;font-size:11.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:16px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <span class="eyebrow">GUI-HR-MIC-001 · v2.1 · Entrevista digital</span>
+    <h1 class="script">Entrevista <em>estructurada</em></h1>
+    <p class="subtitle">Mismas preguntas, mismos criterios, mismo puntaje — para toda candidata. Eso es lo que la hace justa.</p>
+  </header>
+
+  <div class="golden">
+    <h2>Regla de oro · Temas protegidos</h2>
+    <p>Nunca preguntes, nunca profundices y nunca anotes — aunque ella lo mencione primero:</p>
+    <p class="topics">Salud o medicamentos · Embarazo · Hijos y cuidado familiar · Edad · Religión · Origen o estatus migratorio · Discapacidad.</p>
+    <div class="script-line">Si lo menciona: "Gracias por compartirlo — sigamos con el trabajo." y pasa a la siguiente pregunta.</div>
+  </div>
+
+  <div class="infogrid">
+    <div>
+      <label>Nombre de la candidata</label>
+      <input type="text" id="f-nombre" placeholder="Nombre completo">
+    </div>
+    <div>
+      <label>Fecha</label>
+      <input type="date" id="f-fecha">
+    </div>
+    <div class="full">
+      <label>Entrevistada por</label>
+      <input type="text" id="f-entrevistadora" placeholder="Tu nombre">
+    </div>
+  </div>
+
+  <div class="timerbox">
+    Seguimiento (máx. 4 min): <b id="timer-display">4:00</b>
+    <button onclick="toggleTimer()" id="timer-btn">Iniciar</button>
+  </div>
+
+  <div class="scorebar">
+    <div class="score-num"><span id="score-total">0</span> <span>/ 24 puntos</span></div>
+    <div class="badge-live progreso" id="badge-live">En progreso</div>
+  </div>
+
+  <div id="preguntas-container"></div>
+
+  <div class="section-title">Señales de alerta (Sección 8)</div>
+  <div class="alertlist" id="alertlist"></div>
+
+  <div class="resultpanel">
+    <h2>Resultado técnico</h2>
+    <div class="result-main">
+      <span class="result-pill progreso" id="result-pill">En progreso</span>
+      <span class="result-note" id="result-note">Responde las 8 preguntas para ver el resultado.</span>
+    </div>
+    <div id="result-warning-box"></div>
+
+    <div class="motivo-row">
+      <label>Motivo breve (solo operativo)</label>
+      <select id="f-motivo">
+        <option value="">— Selecciona si aplica —</option>
+        <option value="No disponible en el horario requerido">No disponible en el horario requerido</option>
+        <option value="Logística incompatible">Logística incompatible</option>
+        <option value="Puntaje insuficiente">Puntaje insuficiente</option>
+        <option value="Red flag de actitud">Red flag de actitud</option>
+        <option value="No cumple requisitos del cargo">No cumple requisitos del cargo</option>
+        <option value="N/A — Avanza">N/A — Avanza</option>
+      </select>
+    </div>
+
+    <div class="contraste">
+      <p class="ask">¿Cuál es tu decisión, según tu propio criterio? (Compárala con el resultado técnico de arriba.)</p>
+      <div class="opinionbtns">
+        <button class="opbtn" data-op="AVANZA" onclick="setOpinion('AVANZA')">Avanza</button>
+        <button class="opbtn" data-op="RESERVA" onclick="setOpinion('RESERVA')">Reserva</button>
+        <button class="opbtn" data-op="NO AVANZA" onclick="setOpinion('NO AVANZA')">No avanza</button>
+      </div>
+      <div class="contrast-msg" id="contrast-msg" style="display:none;"></div>
+    </div>
+
+    <div class="actionrow">
+      <button class="btn btn-copy" onclick="copyRegistro(this)">Copiar registro final</button>
+      <button class="btn btn-reset" onclick="resetTodo()">Nueva entrevista</button>
+    </div>
+  </div>
+
+  <footer>
+    Herramienta organizacional interna. No constituye asesoría legal — valida los detalles con un asesor laboral de tu estado.<br>
+    Maid In The City Inc. · Sistema Líderes Imparables
+  </footer>
+
+</div>
+
+<script>
+const PREGUNTAS = [
+  {
+    bloque: "1 · Expectativas",
+    pregunta: "Descríbeme cómo te imaginas un día típico en este trabajo. ¿Qué esperas de él?",
+    si: "Descripción realista: esfuerzo físico, varias casas seguidas, horario, supervisión y trabajo en equipo.",
+    no: "Idea idealizada del puesto, evita hablar del esfuerzo físico, o solo le interesa el pago inmediato."
+  },
+  {
+    bloque: "2 · Logística",
+    pregunta: "¿Cómo llegas al punto de salida y qué harías si un día cambia la ruta o la salida es más temprano?",
+    si: "Ruta clara, tiempo razonable y plan estable.",
+    no: "Todo depende de otra persona o de algo incierto."
+  },
+  {
+    bloque: "3 · Disponibilidad",
+    pregunta: "¿Qué días y horarios sí puedes trabajar? ¿Hay horarios dentro de la jornada (lunes a sábado desde 8:30 AM) en los que no estés disponible?",
+    si: "Disponibilidad compatible con la ruta real, expresada de forma concreta.",
+    no: "Horario fragmentado o respuestas confusas. (No preguntar las causas de la no disponibilidad.)"
+  },
+  {
+    bloque: "4 · Historial",
+    pregunta: "Cuéntame de tus últimos trabajos y por qué saliste.",
+    si: "Coherencia, estabilidad y responsabilidad al explicar. Coincide con lo escrito en su solicitud.",
+    no: "Se contradice con la solicitud, culpa a todo el mundo o no explica nada."
+  },
+  {
+    bloque: "5 · Corrección",
+    pregunta: "Si una supervisora te explica una forma distinta de limpiar, ¿cómo reaccionas?",
+    si: "Apertura, aprendizaje y actitud tranquila.",
+    no: "Se pone a la defensiva o dice que no necesita corrección."
+  },
+  {
+    bloque: "6 · Sistema",
+    pregunta: "¿Has trabajado con checklist, tiempos o reportes simples?",
+    si: "Aceptación del sistema y del seguimiento. Coincide con su respuesta escrita.",
+    no: "Resistencia a las listas, tiempos o control."
+  },
+  {
+    bloque: "7 · Ritmo",
+    pregunta: "Cuando el trabajo está pesado, ¿cómo te organizas para terminar a tiempo?",
+    si: "Capacidad de avanzar sin frenarse, con un ejemplo real.",
+    no: "Se frustra fácil o se paraliza."
+  },
+  {
+    bloque: "8 · Cliente y casa",
+    pregunta: "Si encuentras algo dañado o delicado en la casa del cliente, ¿qué haces?",
+    si: "Avisa, cuida el espacio y no improvisa. Coincide con su respuesta escrita.",
+    no: "Oculta cosas, no avisa o actúa con descuido."
+  }
+];
+
+const ALERTAS = [
+  "Habla mal de todos sus empleadores anteriores.",
+  "Se contradice con lo que puso en la solicitud.",
+  "Minimiza faltas, tardanzas o cambios de trabajo.",
+  "No acepta supervisión o dice que no necesita instrucciones.",
+  "Su logística cambia mucho cuando se le explica la exigencia real del puesto."
+];
+
+let scores = new Array(PREGUNTAS.length).fill(null);
+let evidencias = new Array(PREGUNTAS.length).fill('');
+let alertChecks = new Array(ALERTAS.length).fill(false);
+let opinionPropia = null;
+
+function renderPreguntas(){
+  const cont = document.getElementById('preguntas-container');
+  cont.innerHTML = PREGUNTAS.map((q, i) => `
+    <div class="qcard">
+      <div class="qcard-top">
+        <div class="qnum">${i+1}</div>
+        <div class="qbloque">Bloque ${q.bloque}</div>
+      </div>
+      <div class="qpregunta">"${q.pregunta}"</div>
+      <div class="refcols">
+        <div class="refbox2 si"><b>Cómo se ve un 3</b>${q.si}</div>
+        <div class="refbox2 no"><b>Red flag — cómo se ve un 1</b>${q.no}</div>
+      </div>
+      <div class="scorebtns">
+        <button class="scorebtn" id="btn-${i}-1" onclick="setScore(${i},1)">1<small>Red flag</small></button>
+        <button class="scorebtn" id="btn-${i}-2" onclick="setScore(${i},2)">2<small>Vago</small></button>
+        <button class="scorebtn" id="btn-${i}-3" onclick="setScore(${i},3)">3<small>Claro</small></button>
+      </div>
+      <div class="evidencia">
+        <label>Frase textual (evidencia, opcional)</label>
+        <input type="text" id="ev-${i}" placeholder="Ej: dijo que..." oninput="evidencias[${i}]=this.value">
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderAlertas(){
+  const cont = document.getElementById('alertlist');
+  cont.innerHTML = ALERTAS.map((a, i) => `
+    <label class="alertitem">
+      <input type="checkbox" id="alert-${i}" onchange="alertChecks[${i}]=this.checked; actualizar();">
+      <span>${a}</span>
+    </label>
+  `).join('');
+}
+
+function setScore(i, val){
+  scores[i] = val;
+  [1,2,3].forEach(v => {
+    document.getElementById(`btn-${i}-${v}`).classList.remove('sel-1','sel-2','sel-3');
+  });
+  document.getElementById(`btn-${i}-${val}`).classList.add('sel-'+val);
+  actualizar();
+}
+
+function setOpinion(op){
+  opinionPropia = op;
+  document.querySelectorAll('.opbtn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`.opbtn[data-op="${op}"]`).classList.add('active');
+  actualizar();
+}
+
+function calcularResultado(){
+  const respondidas = scores.filter(s => s !== null).length;
+  const total = scores.reduce((a,b) => a + (b||0), 0);
+  const hasAlert = alertChecks.some(a => a);
+  let estado = 'progreso', label = 'En progreso', nota = 'Responde las 8 preguntas para ver el resultado.', warning = '';
+
+  if (respondidas === PREGUNTAS.length){
+    if (total >= 18 && total <= 24){
+      if (hasAlert){
+        estado = 'reserva';
+        label = 'RESERVA';
+        nota = 'Puntaje de Avanza, pero con alerta activa.';
+        warning = 'Alerta activa con puntaje alto — la guía exige "sin alertas fuertes" para Avanza. Revisa la alerta marcada antes de decidir.';
+      } else {
+        estado = 'avanza';
+        label = 'AVANZA';
+        nota = 'Agendar el Día 1 de ingreso dentro de las próximas 72 horas.';
+      }
+    } else if (total >= 14 && total <= 17){
+      estado = 'reserva';
+      label = 'RESERVA';
+      nota = 'Guardar en banco de candidatas con fecha de revisión (máximo 90 días).';
+    } else {
+      estado = 'noavanza';
+      label = 'NO AVANZA';
+      nota = 'Cerrar el proceso con respeto y registrar el motivo (solo motivos operativos).';
+    }
+    if (hasAlert && total <= 17 && !warning){
+      nota += ' Además hay una alerta activa registrada.';
+    }
+  }
+  return {estado, label, nota, warning, total, hasAlert, respondidas};
+}
+
+function actualizar(){
+  const r = calcularResultado();
+  document.getElementById('score-total').textContent = r.total;
+
+  const badge = document.getElementById('badge-live');
+  badge.className = 'badge-live ' + (r.estado === 'noavanza' ? 'noavanza' : r.estado);
+  badge.textContent = r.estado === 'progreso' ? 'En progreso' : r.label;
+
+  const pill = document.getElementById('result-pill');
+  pill.className = 'result-pill ' + (r.estado === 'noavanza' ? 'noavanza' : r.estado);
+  pill.textContent = r.estado === 'progreso' ? `${r.respondidas}/8 respondidas` : `${r.label} · ${r.total}/24`;
+  document.getElementById('result-note').textContent = r.nota;
+
+  const warnBox = document.getElementById('result-warning-box');
+  warnBox.innerHTML = r.warning ? `<div class="result-warning">⚠ ${r.warning}</div>` : '';
+
+  // motivo auto-suggest
+  const motivoSel = document.getElementById('f-motivo');
+  if (r.estado === 'avanza' && motivoSel.value === '') motivoSel.value = 'N/A — Avanza';
+
+  // contraste
+  const msg = document.getElementById('contrast-msg');
+  if (opinionPropia && r.estado !== 'progreso'){
+    msg.style.display = 'block';
+    const tecnico = r.label;
+    if (opinionPropia === tecnico){
+      msg.className = 'contrast-msg match';
+      msg.textContent = '✓ Tu instinto y el resultado técnico coinciden.';
+    } else {
+      msg.className = 'contrast-msg mismatch';
+      msg.textContent = `Tu opinión (${opinionPropia}) difiere del resultado técnico (${tecnico}). Antes de decidir, pregúntate: ¿es una alerta real de la Sección 8, o solo una corazonada? Si es real, márcala arriba. Si no, el criterio uniforme es lo que protege a tu empresa.`;
+    }
+  } else {
+    msg.style.display = 'none';
+  }
+}
+
+function copyRegistro(btn){
+  const r = calcularResultado();
+  const nombre = document.getElementById('f-nombre').value || '(sin nombre)';
+  const fecha = document.getElementById('f-fecha').value || '(sin fecha)';
+  const entrevistadora = document.getElementById('f-entrevistadora').value || '(sin dato)';
+  const motivo = document.getElementById('f-motivo').value || '(sin especificar)';
+
+  let texto = `GUI-HR-MIC-001 v2.1 · Registro de Entrevista\n\n`;
+  texto += `Candidata: ${nombre}\nFecha: ${fecha}\nEntrevistada por: ${entrevistadora}\n\n`;
+  PREGUNTAS.forEach((q, i) => {
+    texto += `Bloque ${q.bloque}: ${scores[i] ?? '—'}/3`;
+    if (evidencias[i]) texto += ` — "${evidencias[i]}"`;
+    texto += `\n`;
+  });
+  texto += `\nPuntaje total: ${r.total}/24\n`;
+  texto += `Señales de alerta marcadas: ${alertChecks.map((a,i)=>a?ALERTAS[i]:null).filter(Boolean).join(' | ') || 'Ninguna'}\n`;
+  texto += `Resultado técnico: ${r.estado==='progreso' ? 'Incompleto' : r.label}\n`;
+  texto += `Tu opinión: ${opinionPropia || '(no registrada)'}\n`;
+  texto += `Motivo breve: ${motivo}\n`;
+
+  navigator.clipboard.writeText(texto).then(() => {
+    const original = btn.textContent;
+    btn.textContent = '¡Copiado! ✓';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = original; btn.classList.remove('copied'); }, 1800);
+  });
+}
+
+function resetTodo(){
+  if (!confirm('¿Iniciar una nueva entrevista? Se borrará todo lo capturado.')) return;
+  scores = new Array(PREGUNTAS.length).fill(null);
+  evidencias = new Array(PREGUNTAS.length).fill('');
+  alertChecks = new Array(ALERTAS.length).fill(false);
+  opinionPropia = null;
+  document.getElementById('f-nombre').value = '';
+  document.getElementById('f-fecha').value = '';
+  document.getElementById('f-entrevistadora').value = '';
+  document.getElementById('f-motivo').value = '';
+  document.querySelectorAll('.opbtn').forEach(b => b.classList.remove('active'));
+  renderPreguntas();
+  renderAlertas();
+  actualizar();
+  resetTimer();
+}
+
+// Timer de seguimiento (máx 4 min)
+let timerSeconds = 240;
+let timerInterval = null;
+function toggleTimer(){
+  const btn = document.getElementById('timer-btn');
+  if (timerInterval){
+    clearInterval(timerInterval);
+    timerInterval = null;
+    btn.textContent = 'Reanudar';
+  } else {
+    btn.textContent = 'Pausar';
+    timerInterval = setInterval(() => {
+      timerSeconds--;
+      const m = Math.floor(Math.max(timerSeconds,0)/60);
+      const s = Math.max(timerSeconds,0) % 60;
+      const display = document.getElementById('timer-display');
+      display.textContent = `${m}:${s.toString().padStart(2,'0')}`;
+      if (timerSeconds <= 0){
+        clearInterval(timerInterval);
+        timerInterval = null;
+        display.style.color = 'var(--rust)';
+        btn.textContent = 'Reiniciar';
+      }
+    }, 1000);
+  }
+}
+function resetTimer(){
+  clearInterval(timerInterval);
+  timerInterval = null;
+  timerSeconds = 240;
+  const display = document.getElementById('timer-display');
+  display.textContent = '4:00';
+  display.style.color = '';
+  document.getElementById('timer-btn').textContent = 'Iniciar';
+}
+
+renderPreguntas();
+renderAlertas();
+actualizar();
+</script>
+</body>
+</html>
